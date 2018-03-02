@@ -3,18 +3,21 @@ package com.ujazdowski.SocialPortal.model.tables;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import java.sql.Timestamp;
 import java.util.Date;
 import lombok.Data;
+import org.hibernate.validator.constraints.Email;
 
 @Data
 @Entity
 @Table(name = "USER_T")
+@XmlRootElement
 public class User {
     @Id
-    @NotNull
-    @Column(name = "USER_ID")
+    @GeneratedValue
+    @Column(name = "USER_ID", unique=true)
     private Long userId;
 
     @OneToOne
@@ -34,6 +37,7 @@ public class User {
     @Column(name = "SECOND_NAME")
     private String secondName;
 
+    @Email
     @NotNull
     @Column(name = "EMAIL")
     private String email;
@@ -49,23 +53,18 @@ public class User {
     @Column(name = "LAST_TIME_ONLINE")
     private Timestamp lastTimeOnline;
 
-    @Null
     @Column(name = "PHONE_NUMBER")
     private String phoneNumber;
 
-    @Null
     @Column(name = "POSTAL_CODE")
     private String postalCode;
 
-    @Null
     @Column(name = "STREET")
     private String street;
 
-    @Null
     @Column(name = "CITY")
     private String city;
 
-    @Null
     @Column(name = "PROFILE_PHOTO_ID")
     private Long profilePhotoId;
 }

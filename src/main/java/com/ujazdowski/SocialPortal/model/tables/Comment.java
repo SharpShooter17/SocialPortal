@@ -1,8 +1,6 @@
 package com.ujazdowski.SocialPortal.model.tables;
 
-import com.ujazdowski.SocialPortal.model.enums.COMMENT;
 import lombok.Data;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
