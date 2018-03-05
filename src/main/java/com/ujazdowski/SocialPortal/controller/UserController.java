@@ -7,27 +7,22 @@ import com.ujazdowski.SocialPortal.model.tables.Language;
 import com.ujazdowski.SocialPortal.model.tables.User;
 import com.ujazdowski.SocialPortal.model.tables.UserRole;
 import com.ujazdowski.SocialPortal.repository.UsersRepository;
-import com.ujazdowski.SocialPortal.utils.Jwt;
-import com.ujazdowski.SocialPortal.utils.Token;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.ConstraintViolationException;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.log4j.Logger;
 
 /**
  * Kontroler użytkowników
  */
-@CrossOrigin
-@RestController
-@RequestMapping("/user")
+@Controller
 public class UserController {
     private static org.apache.log4j.Logger logger = Logger.getLogger(UserController.class);
     private UsersRepository usersRepository;
@@ -41,7 +36,6 @@ public class UserController {
      *
      * @return
      */
-    @RequestMapping(value = "getUsers", method = RequestMethod.GET)
     public List<User> getUsers(){
         return usersRepository.findAll();
     }
@@ -117,19 +111,17 @@ public class UserController {
      * @param password
      * @return
      */
-    @RequestMapping(value = "/login", method = RequestMethod.POST, params = {"email", "password"},
-                        produces = { "application/json", "application/xml", "text/xml" }, consumes = MediaType.ALL_VALUE)
-    public Token login(@RequestParam("email") String email,
-                       @RequestParam("password") String password) throws NotValidUserAuthenticationException {
+    @RequestMapping(value = "/login", method = RequestMethod.POST, params = {"email", "password"})
+    public String login(@RequestParam("email") String email,
+                      @RequestParam("password") String password) throws NotValidUserAuthenticationException {
         User user = this.usersRepository.findUserByEmail(email);
-        Token token = null;
+
         if (BCrypt.checkpw(password, user.getPassword())){
-            token = Jwt.generateToken(user);
+            logger.info(new String("Zalogowano użytkownika"));
+            return "home";
         } else {
             throw new NotValidUserAuthenticationException();
         }
-
-        return token;
     }
 
     /**
