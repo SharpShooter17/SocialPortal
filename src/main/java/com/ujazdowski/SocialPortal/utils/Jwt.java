@@ -7,6 +7,8 @@ import io.jsonwebtoken.impl.crypto.MacProvider;
 import org.joda.time.LocalDateTime;
 
 import java.security.Key;
+import java.util.Observable;
+import java.util.Optional;
 
 public class Jwt {
     private static Key key = MacProvider.generateKey();
@@ -33,11 +35,30 @@ public class Jwt {
      * @param token
      * @return Long Id użytkownika
      */
-    public static Long decryptToken(Token token){
+    private static Long decryptToken(Token token){
         return Long.parseLong(Jwts.parser()
                                     .setSigningKey(key)
                                     .parseClaimsJws(token.getToken())
                                     .getBody()
                                     .getSubject());
+    }
+
+    /**
+     * Sprawdza czy token nie wygasl
+     * @param token
+     * @return false jezeli token jest wazny true w przeciwnym przypadku
+     */
+    private static Boolean expired(Token token){
+
+        return false;
+    }
+
+    /**
+     * Sprawdzenie czy token nie wygas i czy jest poprawny
+     * @param token
+     * @return id uzytkownika lub null
+     */
+    public static Optional<Long> validateToken(Token token){
+        return (!expired(token) ? Optional.of(decryptToken(token)) : Optional.empty());
     }
 }
