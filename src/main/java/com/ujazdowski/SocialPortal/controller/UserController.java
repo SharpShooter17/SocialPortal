@@ -124,7 +124,7 @@ public class UserController {
         User user = this.usersRepository.findUserByEmail(email);
         Token token = null;
         if (BCrypt.checkpw(password, user.getPassword())){
-            token = Jwt.generateToken(user.getUserId());
+            token = Jwt.generateToken(user);
         } else {
             throw new NotValidUserAuthenticationException();
         }
