@@ -48,28 +48,18 @@ public class UserController {
      * @param secondName
      * @param email
      * @param password
-     * @param birthday
-     * @param phoneNumber
-     * @param postalCode
-     * @param street
-     * @param city
      * @return
      */
     @RequestMapping(value = "newUser",
                     method = RequestMethod.POST,
-                    params = {"preferredLanguage", "firstName", "secondName", "email", "password", "birthday", "phoneNumber", "postalCode", "street", "city"},
+                    params = {"preferredLanguage", "firstName", "secondName", "email", "password"},
                     produces = { "application/json", "application/xml", "text/xml" },
                     consumes = MediaType.ALL_VALUE)
     public Boolean newUser(@RequestParam("preferredLanguage") Long preferredLanguage,
                            @RequestParam("firstName") String firstName,
                            @RequestParam("secondName") String secondName,
                            @RequestParam("email") String email,
-                           @RequestParam("password") String password,
-                           @RequestParam("birthday") Date birthday,
-                           @RequestParam("phoneNumber") String phoneNumber,
-                           @RequestParam("postalCode") String postalCode,
-                           @RequestParam("street") String street,
-                           @RequestParam("city") String city) throws UserExistsException {
+                           @RequestParam("password") String password) throws UserExistsException {
         User user = this.usersRepository.findUserByEmail(email);
         if (user != null ){
             throw new UserExistsException();
@@ -90,11 +80,6 @@ public class UserController {
         newUser.setSecondName(secondName);
         newUser.setEmail(email);
         newUser.setPassword(hashPassword);
-        newUser.setBirthday(birthday);
-        newUser.setPhoneNumber(phoneNumber);
-        newUser.setPostalCode(postalCode);
-        newUser.setStreet(street);
-        newUser.setCity(city);
 
         newUser.setRole(role);
         newUser.setLastTimeOnline(null);

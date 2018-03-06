@@ -12,8 +12,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
-import java.util.Locale;
-
 @EnableAutoConfiguration
 @ComponentScan
 @Configuration
@@ -22,7 +20,7 @@ public class SocialPortalConfiguration extends WebMvcConfigurerAdapter {
     @Bean(name = "messageSource")
     public MessageSource getMessageResource()  {
         ReloadableResourceBundleMessageSource messageResource = new ReloadableResourceBundleMessageSource();
-        messageResource.setBasename("translations/message");
+        messageResource.setBasename("/translations/message");
         messageResource.setDefaultEncoding("UTF-8");
         return messageResource;
     }

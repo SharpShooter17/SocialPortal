@@ -45,14 +45,14 @@ public class User {
     @NotNull
     @Column(name = "PASSWORD")
     private String password;
-
+/*
     @NotNull
     @Column(name = "BIRTHDAY")
-    private Date birthday;
+    private Date birthday;*/
 
     @Column(name = "LAST_TIME_ONLINE")
     private Timestamp lastTimeOnline;
-
+/*
     @Column(name = "PHONE_NUMBER")
     private String phoneNumber;
 
@@ -64,7 +64,11 @@ public class User {
 
     @Column(name = "CITY")
     private String city;
-
+*/
     @Column(name = "PROFILE_PHOTO_ID")
     private Long profilePhotoId;
+
+    @NotNull
+    @Column(name = "MALE")
+    private Boolean male;
 }
