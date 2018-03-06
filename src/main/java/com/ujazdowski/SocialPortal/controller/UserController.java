@@ -14,7 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.ConstraintViolationException;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -75,7 +74,6 @@ public class UserController {
 
         User newUser = new User();
 
-        newUser.setPreferredLanguage(language);
         newUser.setFirstName(firstName);
         newUser.setSecondName(secondName);
         newUser.setEmail(email);

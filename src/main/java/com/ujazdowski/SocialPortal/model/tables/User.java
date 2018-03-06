@@ -25,11 +25,6 @@ public class User {
     private UserRole role;
 
     @NotNull
-    @OneToOne
-    @JoinColumn(name = "PREFERRED_LANGUAGE_ID")
-    private Language preferredLanguage;
-
-    @NotNull
     @Column(name = "FIRST_NAME")
     private String firstName;
 
@@ -45,26 +40,10 @@ public class User {
     @NotNull
     @Column(name = "PASSWORD")
     private String password;
-/*
-    @NotNull
-    @Column(name = "BIRTHDAY")
-    private Date birthday;*/
 
     @Column(name = "LAST_TIME_ONLINE")
     private Timestamp lastTimeOnline;
-/*
-    @Column(name = "PHONE_NUMBER")
-    private String phoneNumber;
 
-    @Column(name = "POSTAL_CODE")
-    private String postalCode;
-
-    @Column(name = "STREET")
-    private String street;
-
-    @Column(name = "CITY")
-    private String city;
-*/
     @Column(name = "PROFILE_PHOTO_ID")
     private Long profilePhotoId;
 
