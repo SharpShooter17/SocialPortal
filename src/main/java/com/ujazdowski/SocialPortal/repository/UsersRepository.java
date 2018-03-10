@@ -5,7 +5,9 @@ import org.hibernate.validator.constraints.Email;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 public interface UsersRepository extends JpaRepository<User, Long> {
-    User findUserByEmail(@Email String email);
+    Optional<User> findUserByEmail(@Email String email);
 }

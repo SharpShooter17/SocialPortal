@@ -1,4 +1,4 @@
-package com.ujazdowski.SocialPortal;
+package com.ujazdowski.SocialPortal.configuration;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.MessageSource;
@@ -15,7 +15,7 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 @EnableAutoConfiguration
 @ComponentScan
 @Configuration
-public class SocialPortalConfiguration extends WebMvcConfigurerAdapter {
+public class InternatiolizationConfiguration extends WebMvcConfigurerAdapter {
 
     @Bean(name = "messageSource")
     public MessageSource getMessageResource()  {
@@ -28,7 +28,6 @@ public class SocialPortalConfiguration extends WebMvcConfigurerAdapter {
     @Bean
     public LocaleResolver localeResolver() {
         SessionLocaleResolver slr = new SessionLocaleResolver();
-        //slr.setDefaultLocale(Locale.ENGLISH);
         return slr;
     }
 

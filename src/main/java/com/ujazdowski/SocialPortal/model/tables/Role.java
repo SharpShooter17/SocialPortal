@@ -10,11 +10,12 @@ import javax.validation.constraints.NotNull;
 
 @Data
 @Entity
-@Table(name = "USER_ROLE_T")
-public class UserRole {
+@Table(name = "ROLE_T")
+public class Role {
+
     @Id
     @NotNull
-    @Column(name = "USER_ROLE_ID")
+    @Column(name = "ROLE_ID")
     private Long userRoleId;
 
     @NotNull
