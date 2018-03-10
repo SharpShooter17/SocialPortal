@@ -18,7 +18,7 @@
     <div id="body" class="container">
         <jsp:doBody/>
     </div>
-    <script src="webjars/jquery/1.11.1/jquery.min.js"></script>
+    <script src="webjars/jquery/1.9.1/jquery.min.js"></script>
     <SCRIPT src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></SCRIPT>
 </body>
 </html>

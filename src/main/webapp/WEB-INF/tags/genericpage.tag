@@ -1,28 +1,24 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Bartosz Ujazdowski
-  Date: 06.03.2018
-  Time: 11:20
-  To change this template use File | Settings | File Templates.
---%>
-<%@tag description="Overall Page template" pageEncoding="UTF-8"%>
-<%@attribute name="header" fragment="true" %>
-<%@attribute name="footer" fragment="true" %>
+<%@tag description="Social portal template" pageEncoding="UTF-8"%>
+<%@attribute name="title"%>
+<%@attribute name="firstName"%>
+<%@attribute name="secondName"%>
+<%@attribute name="userId"%>
+
 <html>
 <head>
-    <title>Title</title>
+    <link href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <title>${title} - Social Portal</title>
 </head>
 <body>
-    <div id="pageheader">
-        <jsp:invoke fragment="header"/>
-    </div>
+    <jsp:include page="../jsp/header.jsp">
+        <jsp:param name="firstName" value="${firstName}" />
+        <jsp:param name="secondName" value="${secondName}" />
+        <jsp:param name="userId" value="${userId}" />
+    </jsp:include>
     <div id="body">
         <jsp:doBody/>
     </div>
-    <div id="pagefooter">
-        <jsp:invoke fragment="footer"/>
-    </div>
-
+    <script src="webjars/jquery/1.9.1/jquery.min.js"></script>
     <script type="text/javascript" src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 </html>

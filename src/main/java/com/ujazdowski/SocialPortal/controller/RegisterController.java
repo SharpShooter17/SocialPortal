@@ -52,6 +52,6 @@ public class RegisterController {
         user.setPassword("");
         model.addFlashAttribute("user", user);
 
-        return new ModelAndView("redirect:/");
+        return new ModelAndView("redirect:/login");
     }
 }

@@ -30,11 +30,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login**").anonymous()
                 .anyRequest().permitAll()
                 .and()
-                .formLogin().usernameParameter("email").passwordParameter("password").loginPage("/login").loginProcessingUrl("/login").permitAll()
+                .formLogin().usernameParameter("email").passwordParameter("password").loginPage("/login").loginProcessingUrl("/login").successForwardUrl("/homed").permitAll()
                 .and()
                 .rememberMe().rememberMeParameter("remember-me").tokenValiditySeconds(84000).key("SocialPortalKey")
                 .and()
-                .logout().logoutSuccessUrl("/")
+                .logout().logoutSuccessUrl("/login")
                 .and()
                 .csrf().disable();
     }
