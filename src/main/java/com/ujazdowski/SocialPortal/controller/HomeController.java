@@ -9,11 +9,13 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Optional;
 
 @Controller
+@RequestMapping("/home")
 public class HomeController {
     private final UsersRepository usersRepository;
     private Logger logger = LoggerFactory.getLogger(HomeController.class);
@@ -22,7 +24,7 @@ public class HomeController {
         this.usersRepository = usersRepository;
     }
 
-    @RequestMapping("/home")
+    @RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
     public ModelAndView index(Model model) throws UserNotExistsException {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String email = user.getUsername();

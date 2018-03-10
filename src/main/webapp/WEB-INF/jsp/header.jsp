@@ -14,7 +14,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Social Portal</a>
+            <a class="navbar-brand" href="/home">Social Portal</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -42,7 +42,7 @@
                 <button type="submit" class="btn btn-default">Submit</button>
             </form>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/home/profie/${param.userId}">${param.firstName} ${param.secondName}</span></a></li>
+                <li><a href="/home/profile/${param.userId}">${param.firstName} ${param.secondName}</span></a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><spring:message code="nav.settings"/><span class="caret"></span></a>
                     <ul class="dropdown-menu">
