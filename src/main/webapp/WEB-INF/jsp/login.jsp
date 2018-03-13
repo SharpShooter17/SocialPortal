@@ -37,6 +37,7 @@
                 <button style="width: 100%" id="signIn" class="btn btn-success"><spring:message code="login.signin" /></button>
               </div>
             </div>
+
             <div class="form-group">
                 <label class="col-md-4 control-label"></label>
                 <div class="col-md-4">

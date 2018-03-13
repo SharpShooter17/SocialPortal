@@ -36,6 +36,6 @@ public class CustomUserDerailsService implements UserDetailsService {
             auths.add(new SimpleGrantedAuthority("ROLE_" + r.getRole()));
         }
 
-        return (UserDetails) new org.springframework.security.core.userdetails.User(oUser.get().getEmail(), oUser.get().getPassword(), auths);
+        return (UserDetails) new CustomUser(auths, oUser.get());
     }
 }

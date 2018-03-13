@@ -114,7 +114,6 @@
 			<artifactId>webjars-locator</artifactId>
 			<version>0.33</version>
 		</dependency>
-
 	</dependencies>
 
 	<build>

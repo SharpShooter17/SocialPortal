@@ -3,6 +3,10 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ page import="com.ujazdowski.SocialPortal.service.CustomUser"%>
+
+<security:authentication var="user" property="principal.user" />
 
 <nav class="navbar navbar-default">
     <div class="container-fluid">
@@ -42,7 +46,7 @@
                 <button type="submit" class="btn btn-default">Submit</button>
             </form>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/home/profile/${param.userId}">${param.firstName} ${param.secondName}</span></a></li>
+                <li><a href="/home/profile/${user.userId}"><span>${user.firstName} ${user.secondName}</span></a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><spring:message code="nav.settings"/><span class="caret"></span></a>
                     <ul class="dropdown-menu">

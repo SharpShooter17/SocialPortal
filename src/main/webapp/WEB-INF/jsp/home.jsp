@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
-<t:genericpage title="Home" secondName="${user.secondName}" firstName="${user.firstName}" userId="${user.userId}">
+<t:genericpage title="Home">
     <div>
         <h1>Home page</h1>
     </div>

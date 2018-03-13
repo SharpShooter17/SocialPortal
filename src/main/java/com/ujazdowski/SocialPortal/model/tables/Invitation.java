@@ -12,6 +12,7 @@ import java.sql.Timestamp;
 public class Invitation {
     @NotNull
     @Id
+    @GeneratedValue
     @Column(name = "INVITATION_ID")
     private Long invitationId;
 
