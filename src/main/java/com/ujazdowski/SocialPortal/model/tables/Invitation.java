@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "INVITATION_T")
 public class Invitation {
-    @NotNull
+
     @Id
     @GeneratedValue
     @Column(name = "INVITATION_ID")

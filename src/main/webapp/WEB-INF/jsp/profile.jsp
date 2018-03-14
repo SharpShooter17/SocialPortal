@@ -31,31 +31,38 @@
                             </c:otherwise>
                         </c:choose>
                     </li>
-                    <li class="list-group-item">
-                        <c:choose>
-                            <c:when test="${empty friends.fromUser}">
-                                <%--@elvariable id="friends" type="com.ujazdowski.SocialPortal.model.tables.Invitation"--%>
-                                <form:form name="f" method="post" modelAttribute="friends">
-                                    <form:input path="fromUser" type="hidden" name="fromUser" value="${logged}"/>
-                                    <form:input path="toUser" type="hidden" name="toUser" value="${user}"/>
-                                    <form:button id="sendInvitation" type="submit" class="btn btn-primary btn-lg"><spring:message code="profile.addToFriends" /></form:button>
-                                </form:form>
-                            </c:when>
-                            <c:otherwise>
-                                <c:when test="${friends.accepted == true}">
-                                    Znamy się od: ${friends.sended}
+                    <c:if test="${logged.userId != user.userId}">
+                        <li class="list-group-item">
+                            <c:choose>
+                                <c:when test="${empty friends.fromUser}">
+                                    <%--@elvariable id="invitationForm" type="com.ujazdowski.SocialPortal.model.forms.InvitationForm"--%>
+                                    <form:errors path="invitationForm.*"></form:errors>
+                                    <form:form action="/home/profile/invite" method="post" modelAttribute="invitationForm">
+                                        <form:input path="fromUser" type="hidden" name="fromUser" value="${logged.userId}"/>
+                                        <form:input path="toUser" type="hidden" name="toUser" value="${user.userId}"/>
+                                        <form:button id="sendInvitation" type="submit" class="btn btn-primary btn-lg"><spring:message code="profile.addToFriends" /></form:button>
+                                    </form:form>
                                 </c:when>
                                 <c:otherwise>
-                                    <c:when test="${friends.fromUser == logged.userId}">
-                                        Wysłano zaproszenie
-                                    </c:when>
-                                    <c:otherwise>
-                                        button - akceptuj
-                                    </c:otherwise>
+                                    <c:choose>
+                                        <c:when test="${friends.accepted == true}">
+                                            Znamy się od: ${friends.sended}
+                                        </c:when>
+                                        <c:otherwise>
+                                            <c:choose>
+                                                <c:when test="${friends.fromUser.userId == logged.userId}">
+                                                    Wysłano zaproszenie
+                                                </c:when>
+                                                <c:otherwise>
+                                                    button - akceptuj
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </c:otherwise>
-                            </c:otherwise>
-                        </c:choose>
-                    </li>
+                            </c:choose>
+                        </li>
+                    </c:if>
                 </ul>
             </div>
         </div>

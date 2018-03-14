@@ -1,6 +1,7 @@
 package com.ujazdowski.SocialPortal.controller;
 
 import com.ujazdowski.SocialPortal.exceptions.UserNotExistsException;
+import com.ujazdowski.SocialPortal.model.forms.InvitationForm;
 import com.ujazdowski.SocialPortal.model.tables.Invitation;
 import com.ujazdowski.SocialPortal.model.tables.User;
 import com.ujazdowski.SocialPortal.repository.UsersRepository;
@@ -12,14 +13,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.validation.Valid;
+import javax.swing.text.html.Option;
 import java.util.Optional;
 
 @RequestMapping("/home/profile")
@@ -44,26 +42,39 @@ public class ProfileController {
         oUser.orElseThrow(() -> new UserNotExistsException());
         User user = oUser.get();
         User logged = ((CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
+        user.setPassword(null);
+        logged.setPassword(null);
 
         ModelAndView mv = new ModelAndView("profile");
         mv.addObject("user", user);
         mv.addObject("friends", this.invitationsService.usersAreFriends(user, logged));
+        mv.addObject("invitationForm", new InvitationForm());
 
         return mv;
     }
 
-    @RequestMapping(value = "/{userId}", method = RequestMethod.POST)
-    public ModelAndView invite(@PathVariable("userId") Long userId,
-                         @Valid @ModelAttribute("friends")Invitation invitation,
+    @RequestMapping(value = "/invite", method = RequestMethod.POST)
+    public ModelAndView invite(@ModelAttribute("invitationForm")InvitationForm invitationForm,
                          BindingResult result,
                          Model model) throws Exception {
         if (result.hasErrors()) {
-            logger.warn("bledy... ");
+            for (ObjectError error: result.getAllErrors()) {
+                logger.warn("ERROR {}", error.getDefaultMessage());
+            }
+            return new ModelAndView("home");
         }
-        User user = invitation.getFromUser();
-        logger.info("FROM USER: "  + user.getUserId());
-        this.invitationsService.addNewUser(invitation);
+        Optional<User> oUserFrom = this.usersRepository.findByUserId(invitationForm.getFromUser());
+        Optional<User> oUserTo = this.usersRepository.findByUserId(invitationForm.getToUser());
+
+        oUserFrom.orElseThrow(()->new UserNotExistsException());
+        oUserTo.orElseThrow(()->new UserNotExistsException());
+
+        Invitation invitation = new Invitation();
+        invitation.setFromUser(oUserFrom.get());
+        invitation.setToUser(oUserTo.get());
+
+        this.invitationsService.invite(invitation);
+
         return new ModelAndView("home");
-        // return profile(userId, model);
     }
 }

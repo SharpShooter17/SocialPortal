@@ -35,7 +35,7 @@ public class InvitationsService {
         }
     }
 
-    public void addNewUser(Invitation invitation){
+    public void invite(Invitation invitation){
         invitation.setSended(new Timestamp(new Date().getTime()));
         invitation.setAccepted(false);
         this.invitationsRepository.save(invitation);
