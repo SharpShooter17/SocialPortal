@@ -37,7 +37,7 @@
                                 <c:when test="${empty friends.fromUser}">
                                     <%--@elvariable id="invitationForm" type="com.ujazdowski.SocialPortal.model.forms.InvitationForm"--%>
                                     <form:errors path="invitationForm.*"></form:errors>
-                                    <form:form action="/home/profile/invite" method="post" modelAttribute="invitationForm">
+                                    <form:form action="/home/profile/${user.userId}" method="post" modelAttribute="invitationForm">
                                         <form:input path="fromUser" type="hidden" name="fromUser" value="${logged.userId}"/>
                                         <form:input path="toUser" type="hidden" name="toUser" value="${user.userId}"/>
                                         <form:button id="sendInvitation" type="submit" class="btn btn-primary btn-lg"><spring:message code="profile.addToFriends" /></form:button>
@@ -51,10 +51,10 @@
                                         <c:otherwise>
                                             <c:choose>
                                                 <c:when test="${friends.fromUser.userId == logged.userId}">
-                                                    Wysłano zaproszenie
+                                                    <spring:message code="profile.invitationHasSended" />
                                                 </c:when>
                                                 <c:otherwise>
-                                                    button - akceptuj
+                                                    <spring:message code="profile.acceptInvitation" />
                                                 </c:otherwise>
                                             </c:choose>
                                         </c:otherwise>

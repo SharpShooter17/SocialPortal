@@ -53,15 +53,16 @@ public class ProfileController {
         return mv;
     }
 
-    @RequestMapping(value = "/invite", method = RequestMethod.POST)
-    public ModelAndView invite(@ModelAttribute("invitationForm")InvitationForm invitationForm,
+    @RequestMapping(value = "/{userId}", method = RequestMethod.POST)
+    public ModelAndView invite(@PathVariable("userId") Long userId,
+            @ModelAttribute("invitationForm")InvitationForm invitationForm,
                          BindingResult result,
                          Model model) throws Exception {
         if (result.hasErrors()) {
             for (ObjectError error: result.getAllErrors()) {
                 logger.warn("ERROR {}", error.getDefaultMessage());
             }
-            return new ModelAndView("home");
+            return profile(userId, model);
         }
         Optional<User> oUserFrom = this.usersRepository.findByUserId(invitationForm.getFromUser());
         Optional<User> oUserTo = this.usersRepository.findByUserId(invitationForm.getToUser());
@@ -75,6 +76,6 @@ public class ProfileController {
 
         this.invitationsService.invite(invitation);
 
-        return new ModelAndView("home");
+        return profile(userId, model);
     }
 }
