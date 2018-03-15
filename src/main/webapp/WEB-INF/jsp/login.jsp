@@ -4,47 +4,44 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <t:login>
-    <div class="row">
-        <c:url value="/login" var="loginUrl" />
+    <c:url value="/login" var="loginUrl" />
     <%--@elvariable id="user" type="com.ujazdowski.SocialPortal.model.tables.User"--%>
-    <form:form class="form-horizontal" action="${loginUrl}" name="f" method="post" modelAttribute="user">
-        <fieldset>
-            <legend><spring:message code="login.panel" /></legend>
-            <div class="form-group">
-              <form:label path="email" class="col-md-4 control-label" for="email"><spring:message code="login.email" /></form:label>
-              <div class="col-md-4">
-                <form:input path="email" id="email" name="email" type="text" class="form-control input-md" required="" value="${user.email}" />
-              </div>
-            </div>
-            <div class="form-group">
-              <form:label path="password" class="col-md-4 control-label" for="password"><spring:message code="login.password" /></form:label>
-              <div class="col-md-4">
-                <input id="password" name="password" type="password" class="form-control input-md" required="">
-              </div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-4 control-label"></label>
-                <div class="col-md-4">
-                    <label class="checkbox-inline" for="remember_me">
-                        <input type="checkbox" id="remember_me" name="remember-me" />
-                        <spring:message code="register.rememberme" />
-                    </label>
+    <form:form action="${loginUrl}" name="f" method="post" modelAttribute="user">
+        <div class="form-group">
+            <form:label path="email" for="email"><spring:message code="login.email" /></form:label>
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <i class="fa fa-envelope"></i>
                 </div>
+                <form:input path="email" id="email" name="email" type="email" required="required" class="form-control here"/>
             </div>
-            <div class="form-group">
-              <label class="col-md-4 control-label" for="signIn"></label>
-              <div class="col-md-4">
-                <button style="width: 100%" id="signIn" class="btn btn-success"><spring:message code="login.signin" /></button>
-              </div>
+        </div>
+        <div class="form-group">
+            <form:label path="password" for="password"><spring:message code="login.password" /></form:label>
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <i class="fa fa-lock"></i>
+                </div>
+                <form:password path="password" id="password" name="password" required="required" class="form-control here" />
             </div>
+        </div>
 
-            <div class="form-group">
-                <label class="col-md-4 control-label"></label>
-                <div class="col-md-4">
-                    <a href="Register"><spring:message code="login.noAccount" /></a>
-                </div>
+        <div class="form-group">
+            <label></label>
+            <div>
+                <label class="custom-control custom-checkbox">
+                    <input name="checkbox" id="remember-me" type="checkbox" checked="checked" class="custom-control-input" value="1">
+                    <span class="custom-control-indicator"></span>
+                    <span class="custom-control-description"><spring:message code="register.rememberme" /></span>
+                </label>
             </div>
-        </fieldset>
+        </div>
+
+        <div class="form-group">
+            <form:button name="submit" type="submit" class="btn btn-primary"><spring:message code="login.signin" /></form:button>
+        </div>
+        <div class="form-group">
+            <a href="Register"><spring:message code="login.noAccount" /></a>
+        </div>
     </form:form>
-    </div>
 </t:login>

@@ -9,8 +9,11 @@
 <%@tag description="Overall Page template" pageEncoding="UTF-8"%>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
-    <c:url value="/css/main.css" var="jstlCss" />
+    <%--<link rel="stylesheet" type="text/css" href="webjars/bootstrap/4.0.0-2/css/bootstrap.min.css" />--%>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous" />
+
+        <c:url value="/css/main.css" var="jstlCss" />
     <link href="${jstlCss}" rel="stylesheet" />
     <title>Login - Social portal</title>
 </head>
@@ -18,7 +21,5 @@
     <div id="body" class="container">
         <jsp:doBody/>
     </div>
-    <script src="webjars/jquery/1.9.1/jquery.min.js"></script>
-    <SCRIPT src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></SCRIPT>
 </body>
 </html>

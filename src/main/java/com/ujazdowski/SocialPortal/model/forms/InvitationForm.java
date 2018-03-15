@@ -6,4 +6,5 @@ import lombok.Data;
 public class InvitationForm {
     private Long toUser;
     private Long fromUser;
+    private Boolean accepted;
 }
