@@ -11,10 +11,12 @@ import com.ujazdowski.SocialPortal.repository.PostsRepository;
 import com.ujazdowski.SocialPortal.repository.UsersRepository;
 import com.ujazdowski.SocialPortal.service.CustomUser;
 import com.ujazdowski.SocialPortal.service.InvitationsService;
-import javafx.geometry.Pos;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Optional;
 
 @RequestMapping("/home/profile")
@@ -47,6 +50,15 @@ public class ProfileController {
 
     @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
     public ModelAndView profile(@PathVariable("userId") Long userId, Model model) throws Exception {
+        return this.profile(userId, 0, model);
+    }
+
+    @RequestMapping(value = {"/{userId}/{page}"}, method = RequestMethod.GET)
+    public ModelAndView profile(@PathVariable("userId") Long userId, @PathVariable("page")Integer page, Model model) throws Exception {
+        if (page < 0){
+            page = 0;
+        }
+
         Optional<User> oUser = this.usersRepository.findByUserId(userId);
 
         logger.info("USERID {}", userId);
@@ -64,24 +76,36 @@ public class ProfileController {
         mv.addObject("areFriends", this.invitationsService.usersAreFriends(user, logged));
         mv.addObject("invitationForm", new InvitationForm());
         mv.addObject("friends", this.invitationsService.getFriends(userId));
-        mv.addObject("posts", this.postsRepository.findAllByUserOrderByDateDesc(user));
+        Page<Post> postPage = this.postsRepository.findAllByUserOrderByDateDesc(user, new PageRequest(page, 5));
+        mv.addObject("posts", postPage);
         if (logged.getUserId() == userId) {
             mv.addObject("newPost", new PostForm());
         }
+        mv.addObject("totalPages", postPage.getTotalPages());
+        mv.addObject("onPage", postPage.getNumber());
 
         return mv;
     }
 
-    @RequestMapping(value = "/{userId}", method = RequestMethod.POST)
+    @RequestMapping(value = {"{/userId}"}, method = RequestMethod.POST)
     public ModelAndView invite(@PathVariable("userId") Long userId,
-            @ModelAttribute("invitationForm")InvitationForm invitationForm,
-                         BindingResult result,
-                         Model model) throws Exception {
+                               @ModelAttribute("invitationForm")InvitationForm invitationForm,
+                               BindingResult result,
+                               Model model) throws Exception {
+        return invite(userId, 0, invitationForm, result, model);
+    }
+
+    @RequestMapping(value = {"/{userId}/{page}"}, method = RequestMethod.POST)
+    public ModelAndView invite(@PathVariable("userId") Long userId,
+                                @PathVariable("page") Integer page,
+                                @ModelAttribute("invitationForm")InvitationForm invitationForm,
+                                BindingResult result,
+                                Model model) throws Exception {
         if (result.hasErrors()) {
             for (ObjectError error: result.getAllErrors()) {
                 logger.warn("ERROR {}", error.getDefaultMessage());
             }
-            return profile(userId, model);
+            return profile(userId, page, model);
         }
         Optional<User> oUserFrom = this.usersRepository.findByUserId(invitationForm.getFromUser());
         Optional<User> oUserTo = this.usersRepository.findByUserId(invitationForm.getToUser());
@@ -93,11 +117,11 @@ public class ProfileController {
         if (i.getSended() == null){
             i.setFromUser(oUserFrom.get());
             i.setToUser(oUserTo.get());
-            i.setSended( new Timestamp(0) );
+            i.setSended( new Timestamp(new Date().getTime()) );
         }
         i.setAccepted(invitationForm.getAccepted());
         this.invitationsRepository.save(i);
 
-        return profile(userId, model);
+        return profile(userId, page, model);
     }
 }
