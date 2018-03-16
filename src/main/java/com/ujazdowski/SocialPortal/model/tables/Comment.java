@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "COMMENT_T")
 public class Comment {
-    @NotNull
+    @GeneratedValue
     @Id
     @Column(name = "COMMENT_ID")
     private Long commentId;

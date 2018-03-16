@@ -11,6 +11,16 @@
     <div class="row">
         <div class="col-sm-offset-1 col-md-4">
             <div class="row bg-white m-2 mb-3 p-2">
+                <div class="col-md-4">
+                    <c:choose>
+                        <c:when test="${empty user.profile}">
+                            <i class="fas fa-user fa-10x"></i>
+                        </c:when>
+                        <c:otherwise>
+                            <img class="img-thumbnail" src="/file/user/pictrue/${user.profile}" />
+                        </c:otherwise>
+                    </c:choose>
+                </div>
                 <div class="col">
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item"><spring:message code="profile.user"/>:
@@ -138,21 +148,21 @@
                     </div>
                 </div>
             </c:forEach>
-
-            <ul class="pagination">
-                <li class="page-item">
-                    <a class="page-link" href='<c:url value="/home/profile/${user.userId}/${onPage-1}"/>'>Previous</a>
-                </li>
-                <c:forEach begin="0" end="${totalPages-1}" step="1" var="index">
-                    <li class="page-item <c:if test="${index == onPage}">active</c:if>">
-                        <a class="page-link" href='<c:url value="/home/profile/${user.userId}/${index}"/>'>${index}</a>
+            <c:if test="${totalPages-1 > 0}">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href='<c:url value="/home/profile/${user.userId}/${onPage-1}"/>'>Previous</a>
                     </li>
-                </c:forEach>
-                <li class="page-item">
-                    <a class="page-link" href='<c:url value="/home/profile/${user.userId}/${onPage+1}"/>'>Next</a>
-                </li>
-            </ul>
-
+                    <c:forEach begin="0" end="${totalPages-1 < 0 ? 0 : totalPages-1}" step="1" var="index">
+                        <li class="page-item <c:if test="${index == onPage}">active</c:if>">
+                            <a class="page-link" href='<c:url value="/home/profile/${user.userId}/${index}"/>'>${index}</a>
+                        </li>
+                    </c:forEach>
+                    <li class="page-item">
+                        <a class="page-link" href='<c:url value="/home/profile/${user.userId}/${onPage+1}"/>'>Next</a>
+                    </li>
+                </ul>
+            </c:if>
         </div>
     </div>
 </t:genericpage>

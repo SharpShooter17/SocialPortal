@@ -30,7 +30,7 @@ public class RegisterController {
     public ModelAndView register(){
         User user = new User();
         user.setLastTimeOnline(new Timestamp(0));
-        user.setProfilePhotoId(null);
+        user.setProfile(null);
         Role role = new Role();
         role.setUserRoleId(1L);
         user.getRoles().add(role);

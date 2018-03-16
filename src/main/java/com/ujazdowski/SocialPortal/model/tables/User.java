@@ -53,7 +53,7 @@ public class User {
     private Timestamp lastTimeOnline;
 
     @Column(name = "PROFILE_PHOTO_ID")
-    private Long profilePhotoId;
+    private Long profile;
 
     @NotNull
     @Column(name = "MALE")

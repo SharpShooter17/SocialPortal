@@ -12,8 +12,8 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "PICTRUE_T")
 public class Pictrue {
+    @GeneratedValue
     @Id
-    @NotNull
     @Column(name = "PICTRUE_ID")
     private Long pictrueId;
 
