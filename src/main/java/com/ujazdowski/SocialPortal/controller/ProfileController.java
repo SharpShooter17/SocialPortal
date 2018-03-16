@@ -2,13 +2,16 @@ package com.ujazdowski.SocialPortal.controller;
 
 import com.ujazdowski.SocialPortal.exceptions.UserNotExistsException;
 import com.ujazdowski.SocialPortal.model.forms.InvitationForm;
+import com.ujazdowski.SocialPortal.model.forms.PostForm;
 import com.ujazdowski.SocialPortal.model.tables.Invitation;
+import com.ujazdowski.SocialPortal.model.tables.Post;
 import com.ujazdowski.SocialPortal.model.tables.User;
 import com.ujazdowski.SocialPortal.repository.InvitationsRepository;
 import com.ujazdowski.SocialPortal.repository.PostsRepository;
 import com.ujazdowski.SocialPortal.repository.UsersRepository;
 import com.ujazdowski.SocialPortal.service.CustomUser;
 import com.ujazdowski.SocialPortal.service.InvitationsService;
+import javafx.geometry.Pos;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.ComponentScan;
@@ -56,11 +59,15 @@ public class ProfileController {
         logged.setPassword(null);
 
         ModelAndView mv = new ModelAndView("profile");
+
         mv.addObject("user", user);
         mv.addObject("areFriends", this.invitationsService.usersAreFriends(user, logged));
         mv.addObject("invitationForm", new InvitationForm());
         mv.addObject("friends", this.invitationsService.getFriends(userId));
-        mv.addObject("posts", this.postsRepository.findAllByUser(user));
+        mv.addObject("posts", this.postsRepository.findAllByUserOrderByDateDesc(user));
+        if (logged.getUserId() == userId) {
+            mv.addObject("newPost", new PostForm());
+        }
 
         return mv;
     }

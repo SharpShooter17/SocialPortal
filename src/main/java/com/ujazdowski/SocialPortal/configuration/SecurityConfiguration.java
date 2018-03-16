@@ -39,7 +39,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login**").anonymous()
                 .anyRequest().permitAll()
                 .and()
-                .formLogin().usernameParameter("email").passwordParameter("password").loginPage("/login").loginProcessingUrl("/login").successForwardUrl("/home").permitAll()
+                .formLogin().usernameParameter("email").passwordParameter("password").loginPage("/login").loginProcessingUrl("/login").successForwardUrl("/home").defaultSuccessUrl("/home").permitAll()
                 .and()
                 .rememberMe().rememberMeParameter("remember-me").tokenValiditySeconds(84000).key("SocialPortalKey")
                 .and()

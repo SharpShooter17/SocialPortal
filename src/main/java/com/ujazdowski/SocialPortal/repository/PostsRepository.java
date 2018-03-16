@@ -9,5 +9,5 @@ import java.util.List;
 
 @Component
 public interface PostsRepository extends JpaRepository<Post, Long> {
-    List<Post> findAllByUser(User user);
+    List<Post> findAllByUserOrderByDateDesc(User user);
 }

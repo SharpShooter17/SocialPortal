@@ -11,8 +11,8 @@ import java.util.Date;
 @Table(name = "POST_T")
 public class Post {
 
-    @NotNull
     @Id
+    @GeneratedValue
     @Column(name = "POST_ID")
     private Long postId;
 
@@ -21,7 +21,7 @@ public class Post {
     private String text;
 
     @NotNull
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "USER_ID")
     private User user;
 
