@@ -7,7 +7,9 @@
 <jsp:useBean id="now" class="java.util.Date"/>
 <fmt:formatDate value="${now}" var="lastTimeOnline" pattern="dd-MM-yyyy HH:mm:ss" />
 
-<t:login>
+<spring:message code="login.panel" var="loginPanel" />
+
+<t:login title='${loginPanel}'>
     <div class="row">
         <div class="col">
             <c:url value="/login" var="loginUrl" />

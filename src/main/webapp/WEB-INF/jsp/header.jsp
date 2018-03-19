@@ -30,7 +30,7 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="/home/settings"><spring:message code="nav.settings.account"/></a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="/logout"><spring:message code="nav.settings.logout"/></a>
                     </div>

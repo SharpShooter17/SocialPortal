@@ -16,7 +16,7 @@ import java.util.Map;
 @Controller
 public class LoginController {
     private static Logger logger = LoggerFactory.getLogger(LoginController.class);
-    @RequestMapping(value={"/login"}, method = RequestMethod.GET)
+    @RequestMapping(value={"/login", "", "/"}, method = RequestMethod.GET)
     public ModelAndView login(Model model){
         User user = (User)model.asMap().get("user");
         if (user == null){
@@ -24,5 +24,10 @@ public class LoginController {
         }
 
         return new ModelAndView("login", "user", user);
+    }
+
+    @RequestMapping(value = "/invalidSessionUrl")
+    public ModelAndView invalidSessionUrl(){
+        return new ModelAndView("invalidSessionUrl");
     }
 }

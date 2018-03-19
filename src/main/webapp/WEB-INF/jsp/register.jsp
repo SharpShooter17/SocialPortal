@@ -3,7 +3,10 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<t:login>
+
+<spring:message code="register.panel" var="registerPanel" />
+
+<t:login title="${registerPanel}">
     <%--@elvariable id="user" type="com.ujazdowski.SocialPortal.model.tables.User"--%>
     <form:form action="/Register" method="post" modelAttribute="user">
         <div class="form-group">
