@@ -5,7 +5,27 @@
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
 <t:genericpage title="Home">
-    <div>
-        <h1>Home page</h1>
-    </div>
+    <c:forEach items="${posts.getContent()}" var="post">
+        <div class="card mb-3">
+            <div class="card-header">${post.user.firstName} ${post.user.secondName} - ${post.date}</div>
+            <div class="card-body lead">
+                <p class="card-text"><c:out value="${post.text}"/></p>
+            </div>
+        </div>
+    </c:forEach>
+    <c:if test="${totalPages-1 > 0}">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" href='<c:url value="/home/${onPage-1}"/>'>Previous</a>
+            </li>
+            <c:forEach begin="0" end="${totalPages-1 < 0 ? 0 : totalPages-1}" step="1" var="index">
+                <li class="page-item <c:if test="${index == onPage}">active</c:if>">
+                    <a class="page-link" href='<c:url value="/home/${index}"/>'>${index}</a>
+                </li>
+            </c:forEach>
+            <li class="page-item">
+                <a class="page-link" href='<c:url value="/home/${onPage+1}"/>'>Next</a>
+            </li>
+        </ul>
+    </c:if>
 </t:genericpage>

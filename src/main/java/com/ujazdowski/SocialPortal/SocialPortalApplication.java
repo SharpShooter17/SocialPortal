@@ -21,7 +21,6 @@ public class SocialPortalApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
 			BasicConfigurator.configure();
-			SpringApplication.run(SocialPortalApplication.class, args
-		);
+			SpringApplication.run(SocialPortalApplication.class, args);
 	}
 }

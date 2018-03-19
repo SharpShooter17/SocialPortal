@@ -14,7 +14,7 @@
                 <div class="col-md-4">
                     <c:choose>
                         <c:when test="${empty user.profile}">
-                            <i class="fas fa-user fa-10x"></i>
+                            <i class="img-thumbnail fas fa-user fa-10x"></i>
                         </c:when>
                         <c:otherwise>
                             <img class="img-thumbnail" src="/file/user/pictrue/${user.profile}" />
