@@ -90,6 +90,18 @@
                 </label>
             </div>
         </div>
+
+        <div class="form-group">
+            <form:label path="language" for="lang"><spring:message code="refister.preferredlanguage"/></form:label>
+            <div class="input-group">
+                <form:select path="language" id="lang" name="lang" class="custom-select">
+                    <c:forEach items="${languages}" var="lang">
+                        <form:option value="${lang}">${lang.name}</form:option>
+                    </c:forEach>
+                </form:select>
+            </div>
+        </div>
+
         <div class="form-group">
             <form:button name="submit" type="submit" class="btn btn-primary"><spring:message
                     code="login.register"/></form:button>

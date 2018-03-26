@@ -3,6 +3,7 @@ package com.ujazdowski.SocialPortal.controller;
 import com.ujazdowski.SocialPortal.exceptions.UserExistsException;
 import com.ujazdowski.SocialPortal.model.tables.Role;
 import com.ujazdowski.SocialPortal.model.tables.User;
+import com.ujazdowski.SocialPortal.repository.LanguagesRepository;
 import com.ujazdowski.SocialPortal.service.UserService;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -21,21 +22,25 @@ import java.sql.Timestamp;
 public class RegisterController {
     private static Logger logger = Logger.getLogger(RegisterController.class);
     private final UserService userService;
+    private final LanguagesRepository languagesRepository;
 
-    public RegisterController(UserService userService){
+    public RegisterController(UserService userService, LanguagesRepository languagesRepository){
         this.userService = userService;
+        this.languagesRepository = languagesRepository;
     }
 
     @RequestMapping(value = "/Register", method = RequestMethod.GET)
     public ModelAndView register(){
         User user = new User();
-        user.setLastTimeOnline(new Timestamp(0));
         user.setProfile(null);
         Role role = new Role();
         role.setUserRoleId(1L);
         user.getRoles().add(role);
 
-        return new ModelAndView("register", "user", user);
+        ModelAndView mv = new ModelAndView("register");
+        mv.addObject("user", user);
+        mv.addObject("languages", this.languagesRepository.findAll());
+        return mv;
     }
 
     @RequestMapping(value = "/Register", method = RequestMethod.POST)

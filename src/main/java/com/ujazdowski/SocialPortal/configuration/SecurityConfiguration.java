@@ -1,5 +1,6 @@
 package com.ujazdowski.SocialPortal.configuration;
 
+import com.ujazdowski.SocialPortal.controller.CustomAuthentcationSuccessHandler;
 import com.ujazdowski.SocialPortal.repository.UsersRepository;
 import com.ujazdowski.SocialPortal.service.CustomUserDerailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +20,12 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 @ComponentScan(basePackageClasses = com.ujazdowski.SocialPortal.SocialPortalApplication.class)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-    @Autowired
     private final UsersRepository usersRepository;
-    @Autowired
-    public SecurityConfiguration(UsersRepository usersRepository){
+    private final CustomAuthentcationSuccessHandler customAuthentcationSuccessHandler;
+
+    public SecurityConfiguration(UsersRepository usersRepository, CustomAuthentcationSuccessHandler customAuthentcationSuccessHandler){
         this.usersRepository = usersRepository;
+        this.customAuthentcationSuccessHandler = customAuthentcationSuccessHandler;
     }
 
     @Override
@@ -39,7 +41,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login**").anonymous()
                 .anyRequest().permitAll()
                 .and()
-                .formLogin().usernameParameter("email").passwordParameter("password").loginPage("/login").loginProcessingUrl("/login").successForwardUrl("/home").defaultSuccessUrl("/home").permitAll()
+                .formLogin().usernameParameter("email").passwordParameter("password").loginPage("/login").loginProcessingUrl("/login").successHandler(this.customAuthentcationSuccessHandler).permitAll()
                 .and()
                 .rememberMe().rememberMeParameter("remember-me").tokenValiditySeconds(84000).key("SocialPortalKey")
                 .and()

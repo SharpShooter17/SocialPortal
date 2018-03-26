@@ -25,14 +25,12 @@ import java.util.Optional;
 @RequestMapping("/home")
 public class HomeController {
     private final UsersRepository usersRepository;
-    private final PostsRepository postsRepository;
     private final PostService postService;
 
     private Logger logger = LoggerFactory.getLogger(HomeController.class);
 
-    public HomeController(UsersRepository usersRepository, PostsRepository postsRepository, PostService postService) {
+    public HomeController(UsersRepository usersRepository, PostService postService) {
         this.usersRepository = usersRepository;
-        this.postsRepository = postsRepository;
         this.postService = postService;
     }
 
@@ -49,7 +47,6 @@ public class HomeController {
         oUser.orElseThrow(()-> new UserNotExistsException());
 
         Page<Post> posts = this.postService.getUserFriendsPosts(oUser.get(), new PageRequest(page,5));
-
         ModelAndView mv = new ModelAndView("home");
 
         mv.addObject("user", oUser.get());

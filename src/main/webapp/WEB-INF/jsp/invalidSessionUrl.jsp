@@ -13,6 +13,6 @@
     <div class="p-4 bg-white">
         <h1>${title}</h1>
         <p><spring:message code="invalidSessionUrl.descripion"/></p>
-        <button type="submit" class="btn btn-primary"><spring:message code="login.signin" /></button>
+        <a href="/"><button type="submit" class="btn btn-primary"><spring:message code="login.signin" /></button></a>
     </div>
 </t:login>

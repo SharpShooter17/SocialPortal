@@ -49,13 +49,15 @@ public class User {
     @Column(name = "PASSWORD")
     private String password;
 
-    @Column(name = "LAST_TIME_ONLINE")
-    private Timestamp lastTimeOnline;
-
     @Column(name = "PROFILE_PHOTO_ID")
     private Long profile;
 
     @NotNull
     @Column(name = "MALE")
     private Boolean male;
+
+    @NotNull
+    @OneToOne
+    @JoinColumn(name = "PREFERRED_LANGUAGE_ID", referencedColumnName = "LANGUAGE_ID")
+    private Language language;
 }
