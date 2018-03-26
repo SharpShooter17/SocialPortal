@@ -7,7 +7,7 @@
 
 <t:genericpage title="Settings">
     <div class="row justify-content-md-center p-4 bg-white">
-        <div class="col-md-12">
+        <div class="col-md-4">
             <%--@elvariable id="userSettings" type="com.ujazdowski.SocialPortal.model.forms.SettingsForm"--%>
             <form:form action="/home/settings/" method="post" modelAttribute="userSettings">
                 <form:label path="firstName" for="firstName"><spring:message code="register.firstname"/></form:label>

@@ -109,7 +109,7 @@
             </div>
         </form:form>
     </div>
-    <div class="row">
+    <div class="row bg-white p-4">
         <div class="col">
             <a href="/"><spring:message code="register.gobackttologinpanel"/></a>
         </div>

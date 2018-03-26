@@ -29,20 +29,10 @@
                         <li class="list-group-item"><spring:message code="profile.gender"/>:
                             <c:choose>
                                 <c:when test="${user.male == true}">
-                                    <div class="d-inline input-group">
-                                        <div class="d-inline input-group-addon">
-                                            <i class="fa fa-mars"></i>
-                                        </div>
-                                        <spring:message code="profile.gender.male"/>
-                                    </div>
+                                    <spring:message code="profile.gender.male"/>
                                 </c:when>
                                 <c:otherwise>
-                                    <div class="d-inline input-group">
-                                        <div class="d-inline input-group-addon">
-                                            <i class="fa fa-venus"></i>
-                                        </div>
-                                        <spring:message code="profile.gender.female"/>
-                                    </div>
+                                    <spring:message code="profile.gender.female"/>
                                 </c:otherwise>
                             </c:choose>
                         </li>
