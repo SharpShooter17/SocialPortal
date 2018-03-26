@@ -10,8 +10,8 @@
 <spring:message code="login.panel" var="loginPanel" />
 
 <t:login title='${loginPanel}'>
-    <div class="row">
-        <div class="col">
+    <div class="row justify-content-md-center">
+        <div class="col-md-4 bg-white p-4">
             <c:url value="/login" var="loginUrl" />
             <%--@elvariable id="user" type="com.ujazdowski.SocialPortal.model.tables.User"--%>
             <form:form action="${loginUrl}" name="f" method="post" modelAttribute="user">

@@ -9,7 +9,7 @@
     <title>${title} - Social portal</title>
 </head>
 <body class="bg-light p-4">
-    <div id="body" class="container bg-white p-4">
+    <div id="body" class="container p-4">
         <jsp:doBody/>
     </div>
 </body>
