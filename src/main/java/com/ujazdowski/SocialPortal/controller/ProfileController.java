@@ -87,7 +87,7 @@ public class ProfileController {
         return mv;
     }
 
-    @RequestMapping(value = {"{/userId}"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/{userId}"}, method = RequestMethod.POST)
     public ModelAndView invite(@PathVariable("userId") Long userId,
                                @ModelAttribute("invitationForm")InvitationForm invitationForm,
                                BindingResult result,
