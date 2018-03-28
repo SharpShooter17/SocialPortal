@@ -6,8 +6,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <t:genericpage title="Settings">
-    <div class="row justify-content-md-center p-4 bg-white">
-        <div class="col-md-4">
+    <div class="row justify-content-md-center">
+        <div class="col-md-4 p-4 bg-white">
             <%--@elvariable id="userSettings" type="com.ujazdowski.SocialPortal.model.forms.SettingsForm"--%>
             <form:form action="/home/settings/" method="post" modelAttribute="userSettings">
                 <form:label path="firstName" for="firstName"><spring:message code="register.firstname"/></form:label>
@@ -37,7 +37,7 @@
                     </form:select>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group mt-3">
                     <form:button name="submit" type="submit" class="btn btn-primary"><spring:message code="settings.save"/></form:button>
                 </div>
             </form:form>

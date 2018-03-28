@@ -1,10 +1,14 @@
 package com.ujazdowski.SocialPortal.model.tables;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "COMMENT_T")
 public class Comment {

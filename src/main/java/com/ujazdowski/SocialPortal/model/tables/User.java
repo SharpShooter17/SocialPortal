@@ -6,14 +6,15 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.constraints.Email;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "USER_T")
 @XmlRootElement
@@ -60,4 +61,8 @@ public class User {
     @OneToOne
     @JoinColumn(name = "PREFERRED_LANGUAGE_ID", referencedColumnName = "LANGUAGE_ID")
     private Language language;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "FOR_USER_ID", referencedColumnName = "USER_ID")
+    private Set<InvitationNotification> invitationsNotifications = new HashSet<>();
 }

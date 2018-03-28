@@ -21,6 +21,18 @@
         </form>
         <div class="collapse navbar-collapse justify-content-end mr-5">
             <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownNotifications" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-bell"></i>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <c:forEach items="${user.invitationsNotifications}" var="notification">
+                            <a class="dropdown-item" href="/home/profile/${notification.invitation.fromUser.userId}">
+                                Invitation: ${notification.invitation.fromUser.firstName} ${notification.invitation.fromUser.secondName}
+                            </a>
+                        </c:forEach>
+                    </div>
+                </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="/home/profile/${user.userId}"><span>${user.firstName} ${user.secondName}</span></a>
                 </li>
@@ -29,7 +41,6 @@
                         <spring:message code="nav.settings" />
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
                         <a class="dropdown-item" href="/home/settings"><spring:message code="nav.settings.account"/></a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="/logout"><spring:message code="nav.settings.logout"/></a>

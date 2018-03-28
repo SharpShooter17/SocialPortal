@@ -1,12 +1,14 @@
 package com.ujazdowski.SocialPortal.model.tables;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "POST_T")
 public class Post {
