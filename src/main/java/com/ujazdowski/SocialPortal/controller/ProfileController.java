@@ -6,6 +6,7 @@ import com.ujazdowski.SocialPortal.model.forms.PostForm;
 import com.ujazdowski.SocialPortal.model.tables.Invitation;
 import com.ujazdowski.SocialPortal.model.tables.Post;
 import com.ujazdowski.SocialPortal.model.tables.User;
+import com.ujazdowski.SocialPortal.repository.InvitationNotificationsRepository;
 import com.ujazdowski.SocialPortal.repository.InvitationsRepository;
 import com.ujazdowski.SocialPortal.repository.PostsRepository;
 import com.ujazdowski.SocialPortal.repository.UsersRepository;
@@ -28,6 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequestMapping("/home/profile")
 @Controller
@@ -40,12 +42,14 @@ public class ProfileController {
     private final InvitationsService invitationsService;
     private final InvitationsRepository invitationsRepository;
     private final PostsRepository postsRepository;
+    private final InvitationNotificationsRepository invitationNotificationsRepository;
 
-    public ProfileController(InvitationsService invitationsService, UsersRepository usersRepository, InvitationsRepository invitationsRepository, PostsRepository postsRepository){
+    public ProfileController(InvitationsService invitationsService, UsersRepository usersRepository, InvitationsRepository invitationsRepository, PostsRepository postsRepository, InvitationNotificationsRepository invitationNotificationsRepository){
         this.usersRepository = usersRepository;
         this.invitationsService = invitationsService;
         this.invitationsRepository = invitationsRepository;
         this.postsRepository = postsRepository;
+        this.invitationNotificationsRepository = invitationNotificationsRepository;
     }
 
     @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
@@ -121,6 +125,9 @@ public class ProfileController {
         }
         i.setAccepted(invitationForm.getAccepted());
         this.invitationsRepository.save(i);
+
+        User user = ((CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
+        user.setInvitationsNotifications( this.invitationNotificationsRepository.findAllByForUser(user.getUserId()).stream().collect(Collectors.toSet()) );
 
         return profile(userId, page, model);
     }

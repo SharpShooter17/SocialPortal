@@ -49,7 +49,6 @@ public class HomeController {
         Page<Post> posts = this.postService.getUserFriendsPosts(oUser.get(), new PageRequest(page,5));
         ModelAndView mv = new ModelAndView("home");
 
-        mv.addObject("user", oUser.get());
         mv.addObject("posts", posts);
         mv.addObject("totalPages", posts.getTotalPages());
         mv.addObject("onPage", posts.getNumber());
