@@ -9,6 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Email;
@@ -18,6 +19,7 @@ import org.hibernate.validator.constraints.Email;
 @Entity
 @Table(name = "USER_T")
 @XmlRootElement
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class User {
     @Id
     @GeneratedValue

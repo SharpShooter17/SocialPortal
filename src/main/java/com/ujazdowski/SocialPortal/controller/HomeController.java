@@ -1,6 +1,7 @@
 package com.ujazdowski.SocialPortal.controller;
 
 import com.ujazdowski.SocialPortal.exceptions.UserNotExistsException;
+import com.ujazdowski.SocialPortal.model.forms.SearchForm;
 import com.ujazdowski.SocialPortal.model.tables.Post;
 import com.ujazdowski.SocialPortal.model.tables.User;
 import com.ujazdowski.SocialPortal.repository.PostsRepository;
@@ -17,12 +18,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Optional;
 
 @Controller
 @RequestMapping("/home")
+@SessionAttributes("searchForm")
 public class HomeController {
     private final UsersRepository usersRepository;
     private final PostService postService;
@@ -52,7 +55,6 @@ public class HomeController {
         mv.addObject("posts", posts);
         mv.addObject("totalPages", posts.getTotalPages());
         mv.addObject("onPage", posts.getNumber());
-
         return mv;
     }
 }

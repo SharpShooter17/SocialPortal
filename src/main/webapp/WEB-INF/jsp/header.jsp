@@ -15,9 +15,10 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        <%--@elvariable id="searchForm" type="com.ujazdowski.SocialPortal.model.forms.SearchForm"--%>
+        <form action="/home/search" method="get" class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" name="search" type="search" placeholder="Search" aria-label="Search" />
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><spring:message code="search"/></button>
         </form>
         <div class="collapse navbar-collapse justify-content-end mr-5">
             <ul class="navbar-nav">
