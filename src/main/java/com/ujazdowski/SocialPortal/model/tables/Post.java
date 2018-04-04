@@ -6,6 +6,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -30,4 +31,8 @@ public class Post {
     @NotNull
     @Column(name = "DATE")
     private Date date;
+
+    @OneToMany
+    @JoinColumn(name = "POST_ID", referencedColumnName = "POST_ID")
+    private Set<Comment> comments;
 }

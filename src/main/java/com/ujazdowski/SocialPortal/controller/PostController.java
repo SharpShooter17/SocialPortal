@@ -36,7 +36,6 @@ public class PostController {
         if (logged.getUserId() != post.getUserId()){
             throw new UnauthorizedAcctionException();
         }
-
         Post p = new Post();
         p.setUser(this.usersRepository.findByUserId(post.getUserId()).get());
         p.setText(post.getText());

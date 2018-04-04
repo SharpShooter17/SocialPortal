@@ -1,11 +1,11 @@
 package com.ujazdowski.SocialPortal.model.tables;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -27,11 +27,10 @@ public class Comment {
     private User user;
 
     @NotNull
-    @Column(name = "REFERENCE_ID")
-    private Long refId;
+    @Column(name = "POST_ID")
+    private Long postId;
 
     @NotNull
-    @OneToOne
-    @JoinColumn(name = "TYPE_OF_COMMENT_ID")
-    private TypeOfComment type;
+    @Column(name = "DATE")
+    private Date date;
 }
