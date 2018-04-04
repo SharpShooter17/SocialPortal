@@ -1,5 +1,6 @@
 package com.ujazdowski.SocialPortal.controller;
 
+import com.ujazdowski.SocialPortal.SocialPortalUtils;
 import com.ujazdowski.SocialPortal.exceptions.UserNotExistsException;
 import com.ujazdowski.SocialPortal.model.forms.SettingsForm;
 import com.ujazdowski.SocialPortal.model.tables.User;
@@ -33,16 +34,9 @@ public class SettingsController {
         this.languagesRepository = languagesRepository;
     }
 
-    private User getLoggedUser() throws UserNotExistsException {
-        User userPrincipal = ((CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
-        Optional<User> oUser = this.usersRepository.findUserByEmail(userPrincipal.getEmail());
-        oUser.orElseThrow(UserNotExistsException::new);
-        return oUser.get();
-    }
-
     @RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
     public ModelAndView index() throws UserNotExistsException {
-        User user = this.getLoggedUser();
+        User user = SocialPortalUtils.getLoggedUser();
 
         SettingsForm settingsForm = new SettingsForm();
         settingsForm.setFirstName(user.getFirstName());
@@ -66,7 +60,7 @@ public class SettingsController {
             return index();
         }
 
-        User user = this.getLoggedUser();
+        User user = SocialPortalUtils.getLoggedUser();
 
         user.setFirstName(userSettings.getFirstName());
         user.setSecondName(userSettings.getSecondName());

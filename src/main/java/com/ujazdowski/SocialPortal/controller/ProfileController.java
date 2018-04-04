@@ -1,5 +1,7 @@
 package com.ujazdowski.SocialPortal.controller;
 
+import com.ujazdowski.SocialPortal.SocialPortalUtils;
+import com.ujazdowski.SocialPortal.exceptions.UnauthorizedAcctionException;
 import com.ujazdowski.SocialPortal.exceptions.UserNotExistsException;
 import com.ujazdowski.SocialPortal.model.forms.InvitationForm;
 import com.ujazdowski.SocialPortal.model.forms.PostForm;
@@ -70,7 +72,7 @@ public class ProfileController {
 
         oUser.orElseThrow(() -> new UserNotExistsException());
         User user = oUser.get();
-        User logged = ((CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
+        User logged = SocialPortalUtils.getLoggedUser();
         user.setPassword(null);
         logged.setPassword(null);
 
@@ -117,6 +119,11 @@ public class ProfileController {
         oUserFrom.orElseThrow(()->new UserNotExistsException());
         oUserTo.orElseThrow(()->new UserNotExistsException());
 
+        User user = SocialPortalUtils.getLoggedUser();
+        if (user.getUserId().longValue() != oUserFrom.get().getUserId().longValue()){
+            throw new UnauthorizedAcctionException();
+        }
+
         Invitation i = this.invitationsService.usersAreFriends(oUserFrom.get(), oUserTo.get());
         if (i.getSended() == null){
             i.setFromUser(oUserFrom.get());
@@ -126,7 +133,6 @@ public class ProfileController {
         i.setAccepted(invitationForm.getAccepted());
         this.invitationsRepository.save(i);
 
-        User user = ((CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
         user.setInvitationsNotifications( this.invitationNotificationsRepository.findAllByForUser(user.getUserId()).stream().collect(Collectors.toSet()) );
 
         return profile(userId, page, model);

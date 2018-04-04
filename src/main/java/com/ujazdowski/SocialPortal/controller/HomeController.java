@@ -1,5 +1,6 @@
 package com.ujazdowski.SocialPortal.controller;
 
+import com.ujazdowski.SocialPortal.SocialPortalUtils;
 import com.ujazdowski.SocialPortal.exceptions.UserNotExistsException;
 import com.ujazdowski.SocialPortal.model.forms.SearchForm;
 import com.ujazdowski.SocialPortal.model.tables.Post;
@@ -44,7 +45,7 @@ public class HomeController {
 
     @RequestMapping(value = {"/{page}"}, method = RequestMethod.GET)
     public ModelAndView index(@PathVariable("page") Integer page, Model model) throws UserNotExistsException {
-        User user = ((CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
+        User user = SocialPortalUtils.getLoggedUser();
 
         Optional<com.ujazdowski.SocialPortal.model.tables.User> oUser = this.usersRepository.findUserByEmail(user.getEmail());
         oUser.orElseThrow(()-> new UserNotExistsException());

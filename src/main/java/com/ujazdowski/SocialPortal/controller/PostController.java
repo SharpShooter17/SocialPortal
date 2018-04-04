@@ -1,5 +1,6 @@
 package com.ujazdowski.SocialPortal.controller;
 
+import com.ujazdowski.SocialPortal.SocialPortalUtils;
 import com.ujazdowski.SocialPortal.exceptions.UnauthorizedAcctionException;
 import com.ujazdowski.SocialPortal.model.forms.PostForm;
 import com.ujazdowski.SocialPortal.model.tables.Post;
@@ -31,7 +32,7 @@ public class PostController {
 
     @RequestMapping(value = {"", "/"}, method = RequestMethod.POST)
     public ModelAndView newPost(@ModelAttribute("newPost") PostForm post, BindingResult binder, Model model) throws UnauthorizedAcctionException {
-        User logged = ((CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
+        User logged = SocialPortalUtils.getLoggedUser();
         if (logged.getUserId() != post.getUserId()){
             throw new UnauthorizedAcctionException();
         }

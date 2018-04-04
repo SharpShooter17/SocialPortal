@@ -1,5 +1,6 @@
 package com.ujazdowski.SocialPortal.controller;
 
+import com.ujazdowski.SocialPortal.SocialPortalUtils;
 import com.ujazdowski.SocialPortal.model.tables.User;
 import com.ujazdowski.SocialPortal.repository.UsersRepository;
 import com.ujazdowski.SocialPortal.service.CustomUser;
@@ -34,7 +35,7 @@ public class CustomAuthentcationSuccessHandler implements AuthenticationSuccessH
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        User user = ((CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
+        User user = SocialPortalUtils.getLoggedUser();
         Optional<User> oUser = this.usersRepository.findUserByEmail(user.getEmail());
         localeResolver.setLocale(request, response, StringUtils.parseLocaleString(oUser.get().getLanguage().getCode()));
         redirectStrategy.sendRedirect(request, response, "/home");
