@@ -11,6 +11,25 @@
             <div class="card-body lead">
                 <p class="card-text"><c:out value="${post.text}"/></p>
             </div>
+            <form action="${commentFormURL}" method="post" class="m-3" onsubmit="setTimeout(function(){window.location.reload();},2)">
+                <div class="form-group">
+                    <label for="comment">Dodaj komentarz</label>
+                    <input type="hidden" name="postId" value="${post.postId}">
+                    <input type="hidden" name="userId" value="${user.userId}">
+                    <textarea id="comment" name="comment" cols="40" rows="2" class="form-control" required="required"></textarea>
+                </div>
+                <div class="form-group">
+                    <button name="submit" type="submit" class="btn btn-primary">Send</button>
+                </div>
+            </form>
+            <c:forEach items="${post.comments}" var="comment">
+                <div class="card m-3">
+                    <div class="card-header">${comment.user.firstName} ${comment.user.secondName} - ${comment.date}</div>
+                    <div class="card-body lead">
+                        <p class="card-text"><c:out value="${comment.comment}"/></p>
+                    </div>
+                </div>
+            </c:forEach>
         </div>
     </c:forEach>
     <c:if test="${totalPages-1 > 0}">
