@@ -140,13 +140,12 @@
                     </div>
                     <form action="${commentFormURL}" method="post" class="m-3" onsubmit="setTimeout(function(){window.location.reload();},2)">
                         <div class="form-group">
-                            <label for="comment">Dodaj komentarz</label>
                             <input type="hidden" name="postId" value="${post.postId}">
                             <input type="hidden" name="userId" value="${user.userId}">
                             <textarea id="comment" name="comment" cols="40" rows="2" class="form-control" required="required"></textarea>
                         </div>
                         <div class="form-group">
-                            <button name="submit" type="submit" class="btn btn-primary">Send</button>
+                            <button name="submit" type="submit" class="btn btn-primary"><spring:message code="profile.post.addComment"/></button>
                         </div>
                     </form>
                     <c:forEach items="${post.comments}" var="comment">
