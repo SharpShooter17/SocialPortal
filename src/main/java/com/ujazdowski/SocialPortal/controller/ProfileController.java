@@ -8,11 +8,7 @@ import com.ujazdowski.SocialPortal.model.forms.PostForm;
 import com.ujazdowski.SocialPortal.model.tables.Invitation;
 import com.ujazdowski.SocialPortal.model.tables.Post;
 import com.ujazdowski.SocialPortal.model.tables.User;
-import com.ujazdowski.SocialPortal.repository.InvitationNotificationsRepository;
-import com.ujazdowski.SocialPortal.repository.InvitationsRepository;
-import com.ujazdowski.SocialPortal.repository.PostsRepository;
-import com.ujazdowski.SocialPortal.repository.UsersRepository;
-import com.ujazdowski.SocialPortal.service.CustomUser;
+import com.ujazdowski.SocialPortal.repository.*;
 import com.ujazdowski.SocialPortal.service.InvitationsService;
 
 import org.slf4j.Logger;
@@ -20,7 +16,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RequestMapping("/home/profile")
@@ -45,13 +41,15 @@ public class ProfileController {
     private final InvitationsRepository invitationsRepository;
     private final PostsRepository postsRepository;
     private final InvitationNotificationsRepository invitationNotificationsRepository;
+    private final PictruesRepository pictruesRepository;
 
-    public ProfileController(InvitationsService invitationsService, UsersRepository usersRepository, InvitationsRepository invitationsRepository, PostsRepository postsRepository, InvitationNotificationsRepository invitationNotificationsRepository){
+    public ProfileController(InvitationsService invitationsService, UsersRepository usersRepository, InvitationsRepository invitationsRepository, PostsRepository postsRepository, InvitationNotificationsRepository invitationNotificationsRepository, PictruesRepository pictruesRepository){
         this.usersRepository = usersRepository;
         this.invitationsService = invitationsService;
         this.invitationsRepository = invitationsRepository;
         this.postsRepository = postsRepository;
         this.invitationNotificationsRepository = invitationNotificationsRepository;
+        this.pictruesRepository = pictruesRepository;
     }
 
     @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
@@ -76,6 +74,8 @@ public class ProfileController {
         user.setPassword(null);
         logged.setPassword(null);
 
+        Set<Long> photos = this.pictruesRepository.getPictrueIdsByUser_UserId(userId);
+
         ModelAndView mv = new ModelAndView("profile");
 
         mv.addObject("user", user);
@@ -89,6 +89,7 @@ public class ProfileController {
         }
         mv.addObject("totalPages", postPage.getTotalPages());
         mv.addObject("onPage", postPage.getNumber());
+        mv.addObject("photos", photos);
 
         return mv;
     }

@@ -28,6 +28,7 @@ public class FileController {
         IOUtils.copy(image.getBinaryStream(), response.getOutputStream());
         response.flushBuffer();
         response.setContentType("image/png");
-        return image.getBytes(0, (int) image.length());
+
+        return image.getBytes(1, (int) image.length());
     }
 }

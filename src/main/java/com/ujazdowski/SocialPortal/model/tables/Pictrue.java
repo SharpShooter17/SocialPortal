@@ -24,10 +24,6 @@ public class Pictrue {
     @JoinColumn(name = "USER_ID")
     private User user;
 
-    @Null
-    @Column(name = "DESCRIPTION")
-    private String description;
-
     @NotNull
     @Column(name = "IMAGE")
     private Blob image;

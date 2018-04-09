@@ -116,6 +116,19 @@
                     </div>
                 </div>
             </div>
+            <div class="row bg-white m-2 mb-3 p-2">
+                <div class="col">
+                    <h2>Zdjecia</h2>
+                    <hr />
+                    <div class="row">
+                        <c:forEach items="${photos}" var="photo">
+                            <div class="col-4">
+                                <img class="img-thumbnail" src="/file/user/pictrue/${photo}" />
+                            </div>
+                        </c:forEach>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="col m-2">
             <c:if test="${logged.userId == user.userId}">
