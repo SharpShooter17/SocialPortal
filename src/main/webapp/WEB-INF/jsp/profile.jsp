@@ -118,7 +118,10 @@
             </div>
             <div class="row bg-white m-2 mb-3 p-2">
                 <div class="col">
-                    <h2>Zdjecia</h2>
+                    <h2><spring:message code="profile.photos"/></h2>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                        <i class="fas fa-plus"></i>
+                    </button>
                     <hr />
                     <div class="row">
                         <c:forEach items="${photos}" var="photo">
@@ -141,7 +144,7 @@
                         <form:hidden path="userId" value="${logged.userId}"/>
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary">Opublikuj</button>
+                        <button type="submit" class="btn btn-primary"><spring:message code="post.share"/></button>
                     </div>
                 </form:form>
             </c:if>
@@ -174,7 +177,7 @@
             <c:if test="${totalPages-1 > 0}">
                 <ul class="pagination">
                     <li class="page-item">
-                        <a class="page-link" href='<c:url value="/home/profile/${user.userId}/${onPage-1}"/>'>Previous</a>
+                        <a class="page-link" href='<c:url value="/home/profile/${user.userId}/${onPage-1}"/>'><spring:message code="page.previous"/></a>
                     </li>
                     <c:forEach begin="0" end="${totalPages-1 < 0 ? 0 : totalPages-1}" step="1" var="index">
                         <li class="page-item <c:if test="${index == onPage}">active</c:if>">
@@ -182,10 +185,46 @@
                         </li>
                     </c:forEach>
                     <li class="page-item">
-                        <a class="page-link" href='<c:url value="/home/profile/${user.userId}/${onPage+1}"/>'>Next</a>
+                        <a class="page-link" href='<c:url value="/home/profile/${user.userId}/${onPage+1}"/>'><spring:message code="page.next" /></a>
                     </li>
                 </ul>
             </c:if>
         </div>
     </div>
 </t:genericpage>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <%--@elvariable id="newPhoto" type="com.ujazdowski.SocialPortal.model.forms.NewPhotoForm"--%>
+                <form:form id="pictrue" action="/file/user/pictrue/" method="post" modelAttribute="newPhoto">
+                    <form:input path="image" type="file" id="validatedCustomFile" required="" />
+                    <form:label path="image" for="validatedCustomFile"></form:label>
+                </form:form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="save" type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#myModal').on('shown.bs.modal', function () {
+    $('#myInput').trigger('focus')
+    })
+
+    $("#save").on('click', function() {
+        $("#pictrue").submit();
+    });
+</script>

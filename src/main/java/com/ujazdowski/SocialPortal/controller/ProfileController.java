@@ -4,6 +4,7 @@ import com.ujazdowski.SocialPortal.SocialPortalUtils;
 import com.ujazdowski.SocialPortal.exceptions.UnauthorizedAcctionException;
 import com.ujazdowski.SocialPortal.exceptions.UserNotExistsException;
 import com.ujazdowski.SocialPortal.model.forms.InvitationForm;
+import com.ujazdowski.SocialPortal.model.forms.NewPhotoForm;
 import com.ujazdowski.SocialPortal.model.forms.PostForm;
 import com.ujazdowski.SocialPortal.model.tables.Invitation;
 import com.ujazdowski.SocialPortal.model.tables.Post;
@@ -90,6 +91,7 @@ public class ProfileController {
         mv.addObject("totalPages", postPage.getTotalPages());
         mv.addObject("onPage", postPage.getNumber());
         mv.addObject("photos", photos);
+        mv.addObject( "newPhoto", new NewPhotoForm());
 
         return mv;
     }
