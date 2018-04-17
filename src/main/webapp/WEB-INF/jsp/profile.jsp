@@ -117,11 +117,15 @@
                 </div>
             </div>
             <div class="row bg-white m-2 mb-3 p-2">
-                <div class="col">
-                    <h2><spring:message code="profile.photos"/></h2>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                        <i class="fas fa-plus"></i>
-                    </button>
+                <div class="col-md-12">
+                    <h2>
+                        <spring:message code="profile.photos"/>
+                            <c:if test="${logged.userId == user.userId}">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </c:if>
+                    </h2>
                     <hr />
                     <div class="row">
                         <c:forEach items="${photos}" var="photo">

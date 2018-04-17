@@ -5,12 +5,12 @@ import com.ujazdowski.SocialPortal.exceptions.UserNotExistsException;
 import com.ujazdowski.SocialPortal.model.forms.SettingsForm;
 import com.ujazdowski.SocialPortal.model.tables.User;
 import com.ujazdowski.SocialPortal.repository.LanguagesRepository;
+import com.ujazdowski.SocialPortal.repository.PictruesRepository;
 import com.ujazdowski.SocialPortal.repository.UsersRepository;
-import com.ujazdowski.SocialPortal.service.CustomUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -19,19 +19,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.validation.Valid;
-import java.util.Optional;
-
 @Controller
 @RequestMapping(value = "/home/settings")
 public class SettingsController {
     private final Logger logger = LoggerFactory.getLogger(SettingsController.class);
     private final UsersRepository usersRepository;
     private final LanguagesRepository languagesRepository;
+    private final PictruesRepository pictruesRepository;
 
-    public SettingsController(UsersRepository usersRepository, LanguagesRepository languagesRepository){
+    public SettingsController(UsersRepository usersRepository, LanguagesRepository languagesRepository, PictruesRepository pictruesRepository){
         this.usersRepository = usersRepository;
         this.languagesRepository = languagesRepository;
+        this.pictruesRepository = pictruesRepository;
     }
 
     @RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
@@ -42,10 +41,12 @@ public class SettingsController {
         settingsForm.setFirstName(user.getFirstName());
         settingsForm.setSecondName(user.getSecondName());
         settingsForm.setLanguage(user.getLanguage());
+        settingsForm.setProfilePhoto(user.getProfile());
 
         ModelAndView mv = new ModelAndView("settings");
         mv.addObject("languages", this.languagesRepository.findAll());
         mv.addObject("userSettings", settingsForm);
+        mv.addObject("pictrues", this.pictruesRepository.getPictrueIdsByUser_UserId(user.getUserId()));
         return mv;
     }
 
@@ -65,7 +66,8 @@ public class SettingsController {
         user.setFirstName(userSettings.getFirstName());
         user.setSecondName(userSettings.getSecondName());
         user.setLanguage(userSettings.getLanguage());
-
+        user.setProfile(userSettings.getProfilePhoto());
+        
         this.usersRepository.save(user);
         return new ModelAndView("redirect:/home");
     }

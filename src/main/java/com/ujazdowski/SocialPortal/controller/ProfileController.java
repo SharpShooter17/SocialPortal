@@ -73,7 +73,6 @@ public class ProfileController {
         User user = oUser.get();
         User logged = SocialPortalUtils.getLoggedUser();
         user.setPassword(null);
-        logged.setPassword(null);
 
         Set<Long> photos = this.pictruesRepository.getPictrueIdsByUser_UserId(userId);
 

@@ -37,6 +37,19 @@
                     </form:select>
                 </div>
 
+                <div class="form-group row">
+                    <form:label path="profilePhoto" class="col-4">Zdjęcie profilowe</form:label>
+                    <div class="col-8">
+                        <c:forEach items="${pictrues}" var="img">
+                            <label class="custom-control custom-radio">
+                                <form:radiobutton path="profilePhoto" name="img" class="custom-control-input" value="${img}" />
+                                <span class="custom-control-indicator"></span>
+                                <span class="custom-control-description"><img class="img-thumbnail" style="max-width:200px;" src="/file/user/pictrue/${img}" /></span>
+                            </label>
+                        </c:forEach>
+                    </div>
+                </div>
+
                 <div class="form-group mt-3">
                     <form:button name="submit" type="submit" class="btn btn-primary"><spring:message code="settings.save"/></form:button>
                 </div>
