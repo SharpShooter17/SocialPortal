@@ -5,6 +5,8 @@ import com.ujazdowski.SocialPortal.exceptions.UnauthorizedAcctionException;
 import com.ujazdowski.SocialPortal.model.tables.Comment;
 import com.ujazdowski.SocialPortal.model.tables.User;
 import com.ujazdowski.SocialPortal.repository.CommentsRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,21 +20,17 @@ import java.util.Date;
 @Controller
 @RequestMapping("/home/post/comment")
 public class CommentController {
-
+    private static Logger logger = LoggerFactory.getLogger(CommentController.class);
     private final CommentsRepository commentsRepository;
 
     public CommentController(CommentsRepository commentsRepository) {
         this.commentsRepository = commentsRepository;
     }
 
-    @RequestMapping(value = {"", "/"}, method = RequestMethod.POST, params = {"postId", "comment", "userId"})
+    @RequestMapping(value = {"", "/"}, method = RequestMethod.POST, params = {"postId", "comment"})
     public ModelAndView comment(@RequestParam("postId") Long postId,
-                                @RequestParam("comment") String comment,
-                                @RequestParam("userId") Long userId) throws UnauthorizedAcctionException, MalformedURLException {
+                                @RequestParam("comment") String comment) throws UnauthorizedAcctionException, MalformedURLException {
         User logged = SocialPortalUtils.getLoggedUser();
-        if (logged.getUserId() != userId){
-            throw new UnauthorizedAcctionException();
-        }
         Comment c = new Comment();
 
         c.setComment(comment);

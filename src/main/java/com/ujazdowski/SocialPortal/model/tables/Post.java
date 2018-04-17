@@ -34,5 +34,6 @@ public class Post {
 
     @OneToMany
     @JoinColumn(name = "POST_ID", referencedColumnName = "POST_ID")
+    @OrderBy("DATE DESC")
     private Set<Comment> comments;
 }

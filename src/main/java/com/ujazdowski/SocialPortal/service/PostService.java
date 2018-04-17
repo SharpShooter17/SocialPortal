@@ -24,6 +24,6 @@ public class PostService {
     {
         List<User> friends = this.invitationsService.getFriends(user.getUserId());
         friends.add(user);
-        return postsRepository.findAllByUserIn(friends, pageable);
+        return postsRepository.findAllByUserInOrderByDateDesc(friends, pageable);
     }
 }

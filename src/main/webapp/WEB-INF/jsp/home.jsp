@@ -4,6 +4,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
+<c:url value="/home/post/comment/" var="commentFormURL"/>
+
 <t:genericpage title="Home">
     <c:forEach items="${posts.getContent()}" var="post">
         <div class="card mb-3">
@@ -11,10 +13,9 @@
             <div class="card-body lead">
                 <p class="card-text"><c:out value="${post.text}"/></p>
             </div>
-            <form action="${commentFormURL}" method="post" class="m-3" onsubmit="setTimeout(function(){window.location.reload();},2)">
+            <form action="${commentFormURL}" method="post" class="m-3" onsubmit="setTimeout(function(){window.location.reload();},100)">
                 <div class="form-group">
                     <input type="hidden" name="postId" value="${post.postId}">
-                    <input type="hidden" name="userId" value="${user.userId}">
                     <textarea id="comment" name="comment" cols="40" rows="2" class="form-control" required="required"></textarea>
                 </div>
                 <div class="form-group">
