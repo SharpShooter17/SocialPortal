@@ -8,18 +8,18 @@ import com.ujazdowski.SocialPortal.repository.PictruesRepository;
 import org.apache.commons.compress.utils.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.rowset.serial.SerialBlob;
+import java.io.IOException;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -46,22 +46,14 @@ public class FileController {
     }
 
     @RequestMapping(value = "/user/pictrue/", method = RequestMethod.POST)
-    public ModelAndView addPhoto(@ModelAttribute("newPhoto")NewPhotoForm newPhoto, BindingResult result, RedirectAttributes model) throws SQLException {
+    public ModelAndView addPhoto(@RequestParam("file") MultipartFile file) throws SQLException, IOException {
         logger.info("Work");
         User logged = SocialPortalUtils.getLoggedUser();
-
-        if (result.hasErrors()) {
-            logger.error(new String("adduser error") );
-            for (ObjectError error: result.getAllErrors()) {
-                logger.error(error.getDefaultMessage());
-            }
-            return new ModelAndView("redirect:/home/profile/" + logged.getUserId().toString(), result.getModel());
-        }
 
         Pictrue pictrue = new Pictrue();
         pictrue.setDate(new Timestamp(new Date().getTime()));
         pictrue.setUser(logged);
-        pictrue.setImage( new SerialBlob(newPhoto.getImage()));
+        pictrue.setImage(new SerialBlob(file.getBytes()));
 
         this.pictruesRepository.save(pictrue);
 

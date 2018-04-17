@@ -5,7 +5,6 @@ import com.ujazdowski.SocialPortal.exceptions.UnauthorizedAcctionException;
 import com.ujazdowski.SocialPortal.model.tables.Comment;
 import com.ujazdowski.SocialPortal.model.tables.User;
 import com.ujazdowski.SocialPortal.repository.CommentsRepository;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

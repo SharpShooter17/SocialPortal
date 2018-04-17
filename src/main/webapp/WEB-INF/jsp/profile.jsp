@@ -206,10 +206,10 @@
             </div>
             <div class="modal-body">
                 <%--@elvariable id="newPhoto" type="com.ujazdowski.SocialPortal.model.forms.NewPhotoForm"--%>
-                <form:form id="pictrue" action="/file/user/pictrue/" method="post" modelAttribute="newPhoto">
-                    <form:input path="image" type="file" id="validatedCustomFile" required="" />
-                    <form:label path="image" for="validatedCustomFile"></form:label>
-                </form:form>
+                <form id="pictrue" action="/file/user/pictrue/" method="post" enctype="multipart/form-data">
+                    <input path="image" name="file" type="file" id="validatedCustomFile" required="" />
+                    <label path="image" for="validatedCustomFile"></label>
+                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
