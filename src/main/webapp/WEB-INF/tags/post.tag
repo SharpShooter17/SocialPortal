@@ -59,7 +59,7 @@
     </form>
     <div class="accordion">
         <button class="btn btn-link" data-toggle="collapse" data-target="#Post${post.postId}" aria-expanded="true" aria-controls="collapseOne">
-           pokaż komentarze
+           <spring:message code="post.comment.show" />
         </button>
         <div id="Post${post.postId}" class="collapse ${showComments}" aria-labelledby="headingOne" data-parent="#accordion">
             <c:forEach items="${post.comments}" var="comment">
