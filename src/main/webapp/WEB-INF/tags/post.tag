@@ -4,8 +4,9 @@
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
 <%@attribute name="post" required="true" type="com.ujazdowski.SocialPortal.model.tables.Post" %>
+<%@attribute name="show" required="true"%>
 
-<c:set var="canDelete" value="${false}" />
+<c:set var="canDelete" value="false" />
 
 <security:authentication var="logged" property="principal.user"/>
 
@@ -14,6 +15,13 @@
 </security:authorize>
 <c:if test="${logged.userId == post.user.userId}">
     <c:set var="canDelete" value="true" />
+</c:if>
+
+<c:url value="/home/post/comment/" var="commentFormURL"/>
+
+<c:set value="" var="showComments" />
+<c:if test="${show == true}">
+    <c:set value="show" var="showComments" />
 </c:if>
 
 <div class="card mb-3">
@@ -49,12 +57,19 @@
             <button name="submit" type="submit" class="btn btn-primary"><spring:message code="profile.post.addComment"/></button>
         </div>
     </form>
-    <c:forEach items="${post.comments}" var="comment">
-        <div class="card m-3">
-            <div class="card-header">${comment.user.firstName} ${comment.user.secondName} - ${comment.date}</div>
-            <div class="card-body lead">
-                <p class="card-text"><c:out value="${comment.comment}"/></p>
-            </div>
+    <div class="accordion">
+        <button class="btn btn-link" data-toggle="collapse" data-target="#Post${post.postId}" aria-expanded="true" aria-controls="collapseOne">
+           pokaż komentarze
+        </button>
+        <div id="Post${post.postId}" class="collapse ${showComments}" aria-labelledby="headingOne" data-parent="#accordion">
+            <c:forEach items="${post.comments}" var="comment">
+                <div class="card m-3">
+                    <div class="card-header">${comment.user.firstName} ${comment.user.secondName} - ${comment.date}</div>
+                    <div class="card-body lead">
+                        <p class="card-text"><c:out value="${comment.comment}"/></p>
+                    </div>
+                </div>
+            </c:forEach>
         </div>
-    </c:forEach>
+    </div>
 </div>

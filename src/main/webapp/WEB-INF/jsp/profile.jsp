@@ -7,8 +7,6 @@
 
 <security:authentication var="logged" property="principal.user"/>
 
-<c:url value="/home/post/comment/" var="commentFormURL"/>
-
 <t:genericpage title="Profile">
     <div class="row">
         <div class="col-sm-offset-1 col-md-4">
@@ -153,7 +151,7 @@
                 </form:form>
             </c:if>
             <c:forEach items="${posts.getContent()}" var="post">
-                <t:post post="${post}" />
+                <t:post post="${post}" show="false" />
             </c:forEach>
             <c:if test="${totalPages-1 > 0}">
                 <ul class="pagination">

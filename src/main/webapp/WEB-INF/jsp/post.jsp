@@ -4,5 +4,5 @@
 <c:url value="/home/post/comment/" var="commentFormURL"/>
 
 <t:genericpage title="Post">
-    <t:post post="${post}" />
+    <t:post post="${post}" show="true"/>
 </t:genericpage>

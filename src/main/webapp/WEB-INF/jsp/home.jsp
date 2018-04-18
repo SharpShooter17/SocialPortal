@@ -4,11 +4,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
-<c:url value="/home/post/comment/" var="commentFormURL"/>
-
 <t:genericpage title="Home">
     <c:forEach items="${posts.getContent()}" var="post">
-        <t:post post="${post}" />
+        <t:post post="${post}" show="false" />
     </c:forEach>
     <c:if test="${totalPages-1 > 0}">
         <ul class="pagination">
