@@ -3,31 +3,41 @@ package com.ujazdowski.SocialPortal.controller;
 import com.ujazdowski.SocialPortal.SocialPortalUtils;
 import com.ujazdowski.SocialPortal.exceptions.UnauthorizedAcctionException;
 import com.ujazdowski.SocialPortal.model.forms.PostForm;
+import com.ujazdowski.SocialPortal.model.tables.Comment;
 import com.ujazdowski.SocialPortal.model.tables.Post;
 import com.ujazdowski.SocialPortal.model.tables.User;
+import com.ujazdowski.SocialPortal.repository.CommentsRepository;
 import com.ujazdowski.SocialPortal.repository.PostsRepository;
 import com.ujazdowski.SocialPortal.repository.UsersRepository;
-import com.ujazdowski.SocialPortal.service.CustomUser;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.Date;
 
 @RequestMapping(value = "/home/post")
 @Controller
 public class PostController {
+    private static Logger logger = LoggerFactory.getLogger(PostsRepository.class);
     private final PostsRepository postsRepository;
+    private final CommentsRepository commentsRepository;
     private final UsersRepository usersRepository;
 
-    public PostController(PostsRepository postsRepository, UsersRepository usersRepository) {
+    public PostController(PostsRepository postsRepository, CommentsRepository commentsRepository, UsersRepository usersRepository) {
         this.postsRepository = postsRepository;
+        this.commentsRepository = commentsRepository;
         this.usersRepository = usersRepository;
+    }
+
+    @RequestMapping(value = "/{postId}", method = RequestMethod.GET)
+    public ModelAndView post(@PathVariable("postId")Long postId, Model model){
+        Post post = this.postsRepository.findOne(postId);
+        return new ModelAndView("post", "post", post);
     }
 
     @RequestMapping(value = {"", "/"}, method = RequestMethod.POST)
@@ -43,5 +53,19 @@ public class PostController {
 
         postsRepository.save(p);
         return new ModelAndView("redirect:/home/profile/" + post.getUserId());
+    }
+
+    @RequestMapping(value = {"/delete/{postId}"}, method = RequestMethod.GET)
+    public ModelAndView delete(@PathVariable("postId") Long postId){
+        Post post = this.postsRepository.findOne(postId);
+
+        Long userId = post.getUser().getUserId();
+
+        for (Comment c: post.getComments()) {
+            this.commentsRepository.delete(c);
+        }
+
+        this.postsRepository.delete(post);
+        return new ModelAndView(new RedirectView( "/home/profile/" + userId ));
     }
 }

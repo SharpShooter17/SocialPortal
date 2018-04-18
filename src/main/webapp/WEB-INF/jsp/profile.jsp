@@ -142,7 +142,7 @@
                 <%--@elvariable id="newPost" type="com.ujazdowski.SocialPortal.model.forms.PostForm"--%>
                 <form:form method="post" action="/home/post" class="bg-white p-3" modelAttribute="newPost">
                     <div class="form-group">
-                        <form:label path="text" for="post">Co słychać?</form:label>
+                        <form:label path="text" for="post"><spring:message code="post.whatsUp" /></form:label>
                         <form:textarea path="text" id="post" name="post" cols="40" rows="5" required="required"
                                        class="form-control"></form:textarea>
                         <form:hidden path="userId" value="${logged.userId}"/>
@@ -153,29 +153,7 @@
                 </form:form>
             </c:if>
             <c:forEach items="${posts.getContent()}" var="post">
-                <div class="card mb-3">
-                    <div class="card-header">${post.user.firstName} ${post.user.secondName} - ${post.date}</div>
-                    <div class="card-body lead">
-                        <p class="card-text"><c:out value="${post.text}"/></p>
-                    </div>
-                    <form action="${commentFormURL}" method="post" class="m-3" onsubmit="setTimeout(function(){window.location.reload();},100)">
-                        <div class="form-group">
-                            <input type="hidden" name="postId" value="${post.postId}">
-                            <textarea id="comment" name="comment" cols="40" rows="2" class="form-control" required="required"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <button name="submit" type="submit" class="btn btn-primary"><spring:message code="profile.post.addComment"/></button>
-                        </div>
-                    </form>
-                    <c:forEach items="${post.comments}" var="comment">
-                        <div class="card m-3">
-                            <div class="card-header">${comment.user.firstName} ${comment.user.secondName} - ${comment.date}</div>
-                            <div class="card-body lead">
-                                <p class="card-text"><c:out value="${comment.comment}"/></p>
-                            </div>
-                        </div>
-                    </c:forEach>
-                </div>
+                <t:post post="${post}" />
             </c:forEach>
             <c:if test="${totalPages-1 > 0}">
                 <ul class="pagination">

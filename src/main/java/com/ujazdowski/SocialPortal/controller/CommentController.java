@@ -40,7 +40,7 @@ public class CommentController {
 
         this.commentsRepository.save(c);
 
-        return new ModelAndView(new RedirectView( "Refresh: 0;" ));
+        return new ModelAndView(new RedirectView( "/home/post/" + postId ));
     }
 
 }
