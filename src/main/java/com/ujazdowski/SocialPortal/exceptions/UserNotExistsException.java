@@ -1,4 +1,12 @@
 package com.ujazdowski.SocialPortal.exceptions;
 
-public class UserNotExistsException extends Exception {
+import java.util.Date;
+
+public class UserNotExistsException extends GenericError {
+    public UserNotExistsException(){
+        super("User not exists!");
+        super.setStatus(404L);
+        super.setError("Not found");
+        super.setException(UserExistsException.class);
+    }
 }

@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
-<%@attribute name="title"%>
+<%@attribute name="title" required="true" %>
 
 <security:authorize access="isAuthenticated()">
     <html>

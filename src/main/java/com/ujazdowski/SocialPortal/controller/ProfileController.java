@@ -24,6 +24,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Optional;
@@ -65,11 +66,8 @@ public class ProfileController {
         }
 
         Optional<User> oUser = this.usersRepository.findByUserId(userId);
-
-        logger.info("USERID {}", userId);
-        logger.info("USER {}", oUser.get().getEmail());
-
         oUser.orElseThrow(() -> new UserNotExistsException());
+
         User user = oUser.get();
         User logged = SocialPortalUtils.getLoggedUser();
         user.setPassword(null);

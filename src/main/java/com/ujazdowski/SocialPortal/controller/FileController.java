@@ -1,6 +1,7 @@
 package com.ujazdowski.SocialPortal.controller;
 
 import com.ujazdowski.SocialPortal.SocialPortalUtils;
+import com.ujazdowski.SocialPortal.exceptions.FileNotValidException;
 import com.ujazdowski.SocialPortal.model.forms.NewPhotoForm;
 import com.ujazdowski.SocialPortal.model.tables.Pictrue;
 import com.ujazdowski.SocialPortal.model.tables.User;
@@ -46,8 +47,11 @@ public class FileController {
     }
 
     @RequestMapping(value = "/user/pictrue/", method = RequestMethod.POST)
-    public ModelAndView addPhoto(@RequestParam("file") MultipartFile file) throws SQLException, IOException {
-        logger.info("Work");
+    public ModelAndView addPhoto(@RequestParam("file") MultipartFile file) throws SQLException, IOException, FileNotValidException {
+        if (file.isEmpty()){
+            throw new FileNotValidException();
+        }
+
         User logged = SocialPortalUtils.getLoggedUser();
 
         Pictrue pictrue = new Pictrue();

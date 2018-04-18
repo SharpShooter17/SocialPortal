@@ -1,6 +1,7 @@
 package com.ujazdowski.SocialPortal.controller;
 
 import com.ujazdowski.SocialPortal.SocialPortalUtils;
+import com.ujazdowski.SocialPortal.exceptions.PostNotFoundException;
 import com.ujazdowski.SocialPortal.exceptions.UnauthorizedAcctionException;
 import com.ujazdowski.SocialPortal.model.forms.PostForm;
 import com.ujazdowski.SocialPortal.model.tables.Comment;
@@ -35,8 +36,11 @@ public class PostController {
     }
 
     @RequestMapping(value = "/{postId}", method = RequestMethod.GET)
-    public ModelAndView post(@PathVariable("postId")Long postId, Model model){
+    public ModelAndView post(@PathVariable("postId")Long postId, Model model) throws PostNotFoundException {
         Post post = this.postsRepository.findOne(postId);
+        if (!(post instanceof Post)){
+            throw new PostNotFoundException();
+        }
         return new ModelAndView("post", "post", post);
     }
 
