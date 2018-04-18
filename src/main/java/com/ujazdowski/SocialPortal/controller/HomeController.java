@@ -2,18 +2,14 @@ package com.ujazdowski.SocialPortal.controller;
 
 import com.ujazdowski.SocialPortal.SocialPortalUtils;
 import com.ujazdowski.SocialPortal.exceptions.UserNotExistsException;
-import com.ujazdowski.SocialPortal.model.forms.SearchForm;
 import com.ujazdowski.SocialPortal.model.tables.Post;
 import com.ujazdowski.SocialPortal.model.tables.User;
-import com.ujazdowski.SocialPortal.repository.PostsRepository;
 import com.ujazdowski.SocialPortal.repository.UsersRepository;
-import com.ujazdowski.SocialPortal.service.CustomUser;
 import com.ujazdowski.SocialPortal.service.PostService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;

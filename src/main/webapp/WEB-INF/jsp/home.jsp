@@ -5,22 +5,12 @@
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
 <t:genericpage title="Home">
-    <c:forEach items="${posts.getContent()}" var="post">
-        <t:post post="${post}" show="false" />
-    </c:forEach>
-    <c:if test="${totalPages-1 > 0}">
-        <ul class="pagination">
-            <li class="page-item">
-                <a class="page-link" href='<c:url value="/home/${onPage-1}"/>'>Previous</a>
-            </li>
-            <c:forEach begin="0" end="${totalPages-1 < 0 ? 0 : totalPages-1}" step="1" var="index">
-                <li class="page-item <c:if test="${index == onPage}">active</c:if>">
-                    <a class="page-link" href='<c:url value="/home/${index}"/>'>${index}</a>
-                </li>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <c:forEach items="${posts.getContent()}" var="post">
+                <t:post post="${post}" show="false" />
             </c:forEach>
-            <li class="page-item">
-                <a class="page-link" href='<c:url value="/home/${onPage+1}"/>'>Next</a>
-            </li>
-        </ul>
-    </c:if>
+            <t:paginator totalPages="${totalPages}" baseLink="home" onPage="${onPage}" />
+        </div>
+    </div>
 </t:genericpage>

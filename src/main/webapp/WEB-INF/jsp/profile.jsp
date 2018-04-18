@@ -153,21 +153,7 @@
             <c:forEach items="${posts.getContent()}" var="post">
                 <t:post post="${post}" show="false" />
             </c:forEach>
-            <c:if test="${totalPages-1 > 0}">
-                <ul class="pagination">
-                    <li class="page-item">
-                        <a class="page-link" href='<c:url value="/home/profile/${user.userId}/${onPage-1}"/>'><spring:message code="page.previous"/></a>
-                    </li>
-                    <c:forEach begin="0" end="${totalPages-1 < 0 ? 0 : totalPages-1}" step="1" var="index">
-                        <li class="page-item <c:if test="${index == onPage}">active</c:if>">
-                            <a class="page-link" href='<c:url value="/home/profile/${user.userId}/${index}"/>'>${index}</a>
-                        </li>
-                    </c:forEach>
-                    <li class="page-item">
-                        <a class="page-link" href='<c:url value="/home/profile/${user.userId}/${onPage+1}"/>'><spring:message code="page.next" /></a>
-                    </li>
-                </ul>
-            </c:if>
+            <t:paginator totalPages="${totalPages}" baseLink="home/profile/${user.userId}" onPage="${onPage}" />
         </div>
     </div>
 </t:genericpage>

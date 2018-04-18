@@ -28,7 +28,7 @@
     <div class="card-header">
         <a href="/home/profile/${post.user.userId}">
             <c:choose>
-                <c:when test="${empty user.profile}">
+                <c:when test="${empty post.user.profile}">
                     <i class="rounded-circle fas fa-user fa-10x" style="width: 30px; height: 30px;"></i>
                 </c:when>
                 <c:otherwise>
