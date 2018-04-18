@@ -48,7 +48,7 @@ public class FileController {
 
     @RequestMapping(value = "/user/pictrue/", method = RequestMethod.POST)
     public ModelAndView addPhoto(@RequestParam("file") MultipartFile file) throws SQLException, IOException, FileNotValidException {
-        if (file.isEmpty()){
+        if (file.isEmpty() || !this.validFile(file.getOriginalFilename())){
             throw new FileNotValidException();
         }
 
@@ -64,4 +64,8 @@ public class FileController {
         return new ModelAndView("redirect:/home/profile/" + logged.getUserId().toString());
     }
 
+    private boolean validFile(String filename){
+        filename = filename.toUpperCase();
+        return filename.contains(".PNG") || filename.contains(".JPG") || filename.contains(".JPNG");
+    }
 }
