@@ -10,9 +10,27 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous" />
     <title>${title} - Social portal</title>
 </head>
-<body class="bg-light p-4">
-    <div id="body" class="container p-4">
-        <jsp:doBody/>
+<body class="bg-light">
+    <div id="body" class="container">
+        <div class="row bg-dark text-light p-4">
+            <div class="col-md-12">
+                <h1>SocialPortal</h1>
+            </div>
+        </div>
+        <section id="content">
+            <div class="row bg-white">
+                <div class="col-md-12 p-4">
+                    <jsp:doBody/>
+                </div>
+            </div>
+        </section>
+        <section id="footer">
+            <div class="row bg-dark text-light p-4">
+                <div class="col-md-12">
+                    <p>&copy; 2018 Created by Bartosz Ujazdowski All Rights Reserved</p>
+                </div>
+            </div>
+        </section>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

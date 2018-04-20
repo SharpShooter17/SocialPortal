@@ -11,7 +11,7 @@
 </security:authorize>
 
 <t:login title="Error">
-    <div class="error-wall justify-content-md-center load-error bg-white p-4">
+    <div class="error-wall justify-content-md-center load-error bg-white">
         <div class="error-container">
             <h1>oh no...</h1>
             <h3>We have had an error</h3>

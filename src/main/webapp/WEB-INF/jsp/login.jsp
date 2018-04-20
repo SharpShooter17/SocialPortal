@@ -10,8 +10,7 @@
 <spring:message code="login.panel" var="loginPanel" />
 
 <t:login title='${loginPanel}'>
-    <div class="row justify-content-md-center">
-        <div class="col-md-4 bg-white p-4">
+    <div class="justify-content-md-center">
             <c:url value="/login" var="loginUrl" />
             <%--@elvariable id="user" type="com.ujazdowski.SocialPortal.model.tables.User"--%>
             <form:form action="${loginUrl}" name="f" method="post" modelAttribute="user">
@@ -51,6 +50,5 @@
                     <a href="Register"><spring:message code="login.noAccount" /></a>
                 </div>
             </form:form>
-        </div>
     </div>
 </t:login>

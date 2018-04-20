@@ -7,7 +7,7 @@
 <spring:message code="register.panel" var="registerPanel" />
 
 <t:login title="${registerPanel}">
-    <div class="row bg-white p-4">
+    <div class="row bg-white">
         <%--@elvariable id="user" type="com.ujazdowski.SocialPortal.model.tables.User"--%>
         <form:form action="/Register" method="post" modelAttribute="user" cssClass="col-12">
             <div class="row">
