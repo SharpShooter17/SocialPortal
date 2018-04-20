@@ -5,7 +5,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
 import java.sql.Blob;
 import java.sql.Timestamp;
 
@@ -31,4 +30,9 @@ public class Pictrue {
     @NotNull
     @Column(name = "DATE")
     private Timestamp date;
+
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "TYPE_ID")
+    private ImgType imgType;
 }

@@ -164,7 +164,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLabel"><spring:message code="profile.photos.title" /></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -175,6 +175,7 @@
                     <input path="image" name="file" type="file" id="validatedCustomFile" required="" />
                     <label path="image" for="validatedCustomFile"></label>
                 </form>
+                <span class="text-warning"><spring:message code="profile.photos.allowedtypes" /></span>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
