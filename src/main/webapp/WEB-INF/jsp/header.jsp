@@ -28,9 +28,11 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <c:forEach items="${user.invitationsNotifications}" var="notification">
-                            <a class="dropdown-item" href="/home/profile/${notification.invitation.fromUser.userId}">
-                                Invitation: ${notification.invitation.fromUser.firstName} ${notification.invitation.fromUser.secondName}
-                            </a>
+                            <c:if test="${invitation.accepted == false}">
+                                <a class="dropdown-item" href="/home/profile/${notification.invitation.fromUser.userId}">
+                                    Invitation: ${notification.invitation.fromUser.firstName} ${notification.invitation.fromUser.secondName}
+                                </a>
+                            </c:if>
                         </c:forEach>
                     </div>
                 </li>
